@@ -134,8 +134,9 @@ Sonda tek satır: kaynaklar + *"Bu bülten yatırım tavsiyesi değildir."*
 
 Aşağıdakiler **24 Ağustos 2026** itibarıyla doğrudur. Tarih ilerledikçe değişmiş olabilir; bülteni yazmadan önce güncelliğini kontrol et.
 
-- **Fed Başkanı Kevin Warsh'tır**, Jerome Powell değil. Politika faizi %3,50–3,75. Warsh forward guidance'ı kaldırdı. 2026'da tartışma faiz *indirimi* değil, olası *artırım* yönünde — "faiz indirimi beklentisi" diye yazmadan önce mutlaka doğrula.
-- **TCMB politika faizi %37.** 2026'da 8 PPK toplantısı var, ağustosta yok. 24 Ağustos 2026'da bir hafta vadeli repo ihalelerine yeniden başlandı (1 Mart 2026'da durdurulmuştu) — bu "fiili faiz indirimi" olarak yorumlandı.
+- **Fed Başkanı Kevin Warsh'tır** (22 Mayıs 2026'dan beri), Jerome Powell değil. Politika faizi %3,50–3,75. Warsh forward guidance'ı kaldırdı. 2026'da tartışma faiz *indirimi* değil, olası *artırım* yönünde — "faiz indirimi beklentisi" diye yazmadan önce mutlaka doğrula.
+- **TCMB politika faizi %37.** 2026'da 8 PPK toplantısı var, ağustosta yok. 24 Ağustos 2026'da bir hafta vadeli repo ihalelerine yeniden başlandı (1 Mart 2026'da durdurulmuştu); fonlama maliyeti gecelik %40'tan %37'ye indi — bu "fiili faiz indirimi" olarak yorumlandı.
+- **Ons altın rekoru $5.602** (29 Ocak 2026). Ons bu seviyenin altındaysa **"rekor" deme** — "X ayın zirvesi" de. Gram altın TL bazında aynı anda rekor kırabilir (kur etkisi); ikisini karıştırma.
 - **Türkiye enflasyonu** (temmuz 2026): TÜİK yıllık %31,75, ENAG %50,49.
 - **28 Şubat 2026'da ABD/İsrail–İran savaşı başladı.** Hürmüz Boğazı riski petrol ve altının ana jeopolitik değişkeni. Yaptırım gelişmeleri "düşük önem" filtresine takılmamalı.
 
