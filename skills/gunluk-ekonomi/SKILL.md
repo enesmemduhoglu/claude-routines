@@ -138,8 +138,9 @@ Bugün bir hata tespit ettiysen — kendi yaptığın, önceki bültende bulduğ
 
 1. **Günlüğe ekle.** Dosyanın alt kısmındaki tarihli günlüğe yeni bir kayıt aç: ne yanlıştı, doğrusu ne, nasıl yakalandı.
 2. **Ders kalıcıysa yukarı taşı.** Aynı hata daha önce de olmuşsa veya her gün geçerli bir kuralsa, dosyanın tepesindeki "Kalıcı kurallar" bölümüne **tek satırlık** bir kural ekle.
-3. **Commit'le ve push'la:**
+3. **Commit'le ve push'la.** Oturum "detached HEAD" ile başlar ve yerel `main` geride olabilir; önce dalı düzelt, yoksa push `non-fast-forward` ile reddedilir:
    ```
+   git checkout main && git fetch origin main && git merge --ff-only origin/main
    git add notes/hatalar.md
    git commit -m "hatalar: <kısa özet>"
    git push
