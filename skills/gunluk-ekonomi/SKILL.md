@@ -58,8 +58,9 @@ Her gelişme için sor: *bu, kullanıcının bugün piyasaları anlamasına ger�
 1. **Çapraz kontrol:** `gram TL ≈ ons USD × USD/TRY ÷ 31,1035`. Tutmuyorsa kaynaklardan biri yanlış — çöz, sonra yaz.
 2. **Ons spot mu vadeli mi?** Türk kaynaklarında "ons altın" bazen vadeli kontrat oluyor ve spot'tan 30–50 dolar sapabiliyor. Yukarıdaki çaprazla hangisinin doğru olduğunu belirle.
 3. **Takvim bilgisi tek kaynaktan alınmaz.** Jackson Hole, PCE, FOMC, PPK tarihlerini en az iki kaynakla doğrula.
-4. **Verinin saatini belirt.** Eski veya doğrulanamayan fiyatı güncelmiş gibi sunma.
-5. **Beklenti ≠ gerçekleşen.** İkisini ayır. Rakam bulunamıyorsa uydurma, "veri yok" de.
+4. **"Rekor" kelimesini haberden kopyalama.** Türk haber siteleri "altın rekor kırdı" başlığını sık atıyor ve bu çoğu zaman yanlış oluyor. Rekor demeden önce **gerçek zirveyi (ATH) bul ve bugünkü fiyatla karşılaştır.** Aynısı "en yüksek seviye", "tarihi zirve" gibi ifadeler için de geçerli. Emin değilsen "X ayın zirvesi" gibi ölçülü bir ifade kullan.
+5. **Verinin saatini belirt.** Eski veya doğrulanamayan fiyatı güncelmiş gibi sunma.
+6. **Beklenti ≠ gerçekleşen.** İkisini ayır. Rakam bulunamıyorsa uydurma, "veri yok" de.
 
 ## Adım 3 — E-posta
 
@@ -136,7 +137,7 @@ Aşağıdakiler **24 Ağustos 2026** itibarıyla doğrudur. Tarih ilerledikçe d
 
 - **Fed Başkanı Kevin Warsh'tır** (22 Mayıs 2026'dan beri), Jerome Powell değil. Politika faizi %3,50–3,75. Warsh forward guidance'ı kaldırdı. 2026'da tartışma faiz *indirimi* değil, olası *artırım* yönünde — "faiz indirimi beklentisi" diye yazmadan önce mutlaka doğrula.
 - **TCMB politika faizi %37.** 2026'da 8 PPK toplantısı var, ağustosta yok. 24 Ağustos 2026'da bir hafta vadeli repo ihalelerine yeniden başlandı (1 Mart 2026'da durdurulmuştu); fonlama maliyeti gecelik %40'tan %37'ye indi — bu "fiili faiz indirimi" olarak yorumlandı.
-- **Ons altın rekoru $5.602** (29 Ocak 2026). Ons bu seviyenin altındaysa **"rekor" deme** — "X ayın zirvesi" de. Gram altın TL bazında aynı anda rekor kırabilir (kur etkisi); ikisini karıştırma.
+- **Altında "rekor" derken dikkat.** Zirveler (29 Ocak 2026): **ons $5.602**, **gram ₺7.797**. Fiyat bu seviyelerin altındaysa **"rekor" yazma** — "X ayın zirvesi" de. Ons ve gram ayrı ayrı kontrol edilir; kur etkisiyle gram ons'tan bağımsız rekor kırabilir.
 - **Türkiye enflasyonu** (temmuz 2026): TÜİK yıllık %31,75, ENAG %50,49.
 - **28 Şubat 2026'da ABD/İsrail–İran savaşı başladı.** Hürmüz Boğazı riski petrol ve altının ana jeopolitik değişkeni. Yaptırım gelişmeleri "düşük önem" filtresine takılmamalı.
 
