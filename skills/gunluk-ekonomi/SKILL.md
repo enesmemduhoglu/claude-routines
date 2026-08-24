@@ -21,11 +21,13 @@ Kullanıcı uzun bölümleri okumuyor. Yazdığının 3'te 1'i okunuyorsa fazla 
 
 ## Adım 0 — Süreklilik (her zaman ilk iş)
 
-Gmail'de `subject:"Günlük Ekonomi" newer_than:4d` araması yap ve en son bülteni oku. Amaç:
+**a) Hata notlarını oku.** Repodaki **`notes/hatalar.md`** dosyasını oku. Tepesindeki "Kalıcı kurallar" bölümü geçmiş çalışmalarda yapılmış hatalardan çıkarılmış derslerdir — bu bültende hepsine uy. Alttaki günlüğü de tara; son birkaç kaydı bilmek yeterli.
+
+**b) Önceki bülteni oku.** Gmail'de `subject:"Günlük Ekonomi" newer_than:4d` araması yap ve en son bülteni oku. Amaç:
 
 - **Tekrar etme.** Dün söylediğini bugün aynı cümlelerle yazma.
 - **Trend bağı kur** (sadece kullanıcıya trendi anlamada yardımcı oluyorsa): "BIST üçüncü işlem gününde de yükseldi", "altın son birkaç gündeki yükselişini sürdürüyor", "dolar/TL son günlerde yatay".
-- **Hata gördüysen düzelt.** Önceki bültende yanlış bir rakam/tarih varsa yeni bültenin sonuna kısa bir *Düzeltme* notu koy. Sessizce değiştirme.
+- **Hata gördüysen düzelt.** Önceki bültende yanlış bir rakam/tarih varsa yeni bültenin sonuna kısa bir *Düzeltme* notu koy. Sessizce değiştirme. Ayrıca hatayı `notes/hatalar.md`'ye de işle (bkz. Adım 4).
 
 ## Adım 1 — Araştırma
 
@@ -69,8 +71,9 @@ Konu: `📈 Günlük Ekonomi — [tarih, örn: 25 Ağustos 2026]`
 ### Bölümler — BU SIRAYLA, başka bölüm ekleme
 
 **1. 📊 PİYASA ÖZETİ**
-Tablo: gram altın, ons altın, BIST 100, dolar/TL, euro/TL, Brent, ABD 10 yıllık, dolar endeksi.
+Tablo — bu sırayla: gram altın · ons altın · **gümüş (ons)** · BIST 100 · dolar/TL · euro/TL · **EUR/USD paritesi** · Brent · ABD 10 yıllık · dolar endeksi.
 Her satır: değer + günlük değişim + (varsa) tek kelimelik not ("rekor", "3 ayın zirvesi").
+Gümüş ve parite tabloda **her zaman** yer alır. Ayrıca yorumlanmaları sadece anlamlı hareket varsa gerekir — sakin günde tabloda kalsınlar, yeter.
 
 **2. Tek cümlelik çıkarım**
 Tablonun hemen altında vurgulu kutuda. Günü tek cümlede özetler.
@@ -128,6 +131,29 @@ HTML mail, telefonda rahat okunmalı: tek sütun, `max-width:600px`, inline CSS,
 `body` alanına aynı içeriğin **düz metin karşılığını** da koy.
 
 Sonda tek satır: kaynaklar + *"Bu bülten yatırım tavsiyesi değildir."*
+
+## Adım 4 — Hata notlarını güncelle (mail gönderildikten sonra)
+
+Bugün bir hata tespit ettiysen — kendi yaptığın, önceki bültende bulduğun ya da bir kaynağın yanılttığı bir şey — repodaki **`notes/hatalar.md`** dosyasına işle:
+
+1. **Günlüğe ekle.** Dosyanın alt kısmındaki tarihli günlüğe yeni bir kayıt aç: ne yanlıştı, doğrusu ne, nasıl yakalandı.
+2. **Ders kalıcıysa yukarı taşı.** Aynı hata daha önce de olmuşsa veya her gün geçerli bir kuralsa, dosyanın tepesindeki "Kalıcı kurallar" bölümüne **tek satırlık** bir kural ekle.
+3. **Commit'le ve push'la:**
+   ```
+   git add notes/hatalar.md
+   git commit -m "hatalar: <kısa özet>"
+   git push
+   ```
+   Push başarısız olursa sorun etme — notun tam metnini çalışma özetinde yaz ki kaybolmasın.
+
+**Hata yoksa dosyaya dokunma.** "Bugün hata yok" diye kayıt açma; dosya gereksiz uzamasın.
+
+### Bu dosyayla ilgili sınırlar
+
+- **`SKILL.md`'yi asla düzenleme.** Skill kullanıcının belirlediği sözleşmedir; değişiklikleri kullanıcı yapar. Skill'de düzeltilmesi gereken bir şey görürsen `notes/hatalar.md`'ye yaz ve çalışma özetinde belirt.
+- **Kalıcı kurallar bölümünü kısa tut** — 15 maddeyi geçmesin. Doluysa, artık geçerli olmayan veya SKILL.md'ye taşınmış bir maddeyi çıkar.
+- **Günlükte 90 günden eski kayıtları silebilirsin** — dersi kalıcı kurallara taşınmışsa.
+- Günlük kaydı kısa olsun: 2–4 satır. Bu dosya bir hata defteri, günlük değil.
 
 ---
 

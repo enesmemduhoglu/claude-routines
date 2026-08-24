@@ -16,6 +16,17 @@ Rutin bu repoyu klonlar, promptunda ilgili `SKILL.md` dosyasını okumasını s�
 
 Skill'i değiştirmek için bu repoya push yapmak yeterli — **rutini güncellemeye gerek yok.**
 
+## İki dosya, iki rol
+
+| Dosya | Kim yazar | Ne içerir |
+|---|---|---|
+| `skills/*/SKILL.md` | **Sadece insan** | Kullanıcının sözleşmesi: format, uzunluk sınırları, ton, kurallar |
+| [`notes/hatalar.md`](notes/hatalar.md) | **Ajan** (append-only) | Yapılmış hatalar ve bunlardan çıkan dersler |
+
+Ajan her çalışmada ikisini de okur, ama yalnızca `notes/hatalar.md`'ye yazar. Bu ayrım bilinçli: skill'i ajana açarsan zamanla şişer ve kullanıcının koyduğu kurallar aşınır; hata defteri ise en kötü ihtimalle uzar, bülteni bozmaz.
+
+Defterdeki bir ders kalıcılaşmışsa insan onu `SKILL.md`'ye taşıyabilir.
+
 ## Notlar
 
 Bu repo **public**. Buraya e-posta adresi, API anahtarı veya kişisel veri koyma — alıcı adresi gibi yapılandırma bilgileri rutin promptunda tutulur.
