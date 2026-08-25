@@ -23,7 +23,7 @@ Kullanıcı uzun bölümleri okumuyor. Yazdığının 3'te 1'i okunuyorsa fazla 
 
 **a) Hata notlarını oku.** Repodaki **`notes/hatalar.md`** dosyasını oku. Tepesindeki "Kalıcı kurallar" bölümü geçmiş çalışmalarda yapılmış hatalardan çıkarılmış derslerdir — bu bültende hepsine uy. Alttaki günlüğü de tara; son birkaç kaydı bilmek yeterli.
 
-**b) Önceki bülteni oku.** Gmail'de `subject:"Günlük Ekonomi" newer_than:4d` araması yap ve en son bülteni oku. Amaç:
+**b) Önceki bülteni oku.** Gmail'de `subject:"Günlük Ekonomi" newer_than:4d` araması yap. **Birden fazla sonuç varsa gönderim tarihi en yeni olanı esas al** — sıralamaya güvenme, tarihlere bak. Amaç:
 
 - **Tekrar etme.** Dün söylediğini bugün aynı cümlelerle yazma.
 - **Trend bağı kur** (sadece kullanıcıya trendi anlamada yardımcı oluyorsa): "BIST üçüncü işlem gününde de yükseldi", "altın son birkaç gündeki yükselişini sürdürüyor", "dolar/TL son günlerde yatay".
@@ -62,7 +62,8 @@ Her gelişme için sor: *bu, kullanıcının bugün piyasaları anlamasına ger�
 3. **Takvim bilgisi tek kaynaktan alınmaz.** Jackson Hole, PCE, FOMC, PPK tarihlerini en az iki kaynakla doğrula.
 4. **"Rekor" kelimesini haberden kopyalama.** Türk haber siteleri "altın rekor kırdı" başlığını sık atıyor ve bu çoğu zaman yanlış oluyor. Rekor demeden önce **gerçek zirveyi (ATH) bul ve bugünkü fiyatla karşılaştır.** Aynısı "en yüksek seviye", "tarihi zirve" gibi ifadeler için de geçerli. Emin değilsen "X ayın zirvesi" gibi ölçülü bir ifade kullan.
 5. **Verinin saatini belirt.** Eski veya doğrulanamayan fiyatı güncelmiş gibi sunma.
-6. **Beklenti ≠ gerçekleşen.** İkisini ayır. Rakam bulunamıyorsa uydurma, "veri yok" de.
+6. **Farklı zaman noktalarındaki verileri aynı kefeye koyma.** Bülten yazılırken BIST gün içi, ABD önceki kapanış, Avrupa ve Asya ise sezona/saate göre açık veya kapalı olabilir. Her rakamın hangi ana ait olduğunu bil; kapanış verisiyle gün içi veriyi "bugünkü değişim" diye tek listede sunma. Tabloda gerekiyorsa satırın notuna "önceki kapanış" yaz.
+7. **Beklenti ≠ gerçekleşen.** İkisini ayır. Rakam bulunamıyorsa uydurma, "veri yok" de.
 
 ## Adım 3 — E-posta
 
@@ -89,7 +90,7 @@ Tablonun hemen altında vurgulu kutuda. Günü tek cümlede özetler.
 
 **4. 🇹🇷 TÜRKİYE** — en fazla 3–4 kısa cümle.
 BIST'in durumu, varsa TCMB/veri gelişmesi, kur. Bitti.
-*Not: rutin 09:00'da çalışıyorsa BIST henüz açılmamıştır (açılış 10:00) — önceki kapanışı ver ve bunu belirt.*
+*Not: BIST açılışı 10:00 TSİ. Çalıştırma anında borsa henüz açılmamışsa önceki kapanışı ver ve bunu belirt.*
 
 **5. 🟡 ALTIN** — iki kutu (ons / gram) + en fazla 3 cümle.
 Gram hareketini **mutlaka ayrıştır**: ons kaynaklı mı, kur kaynaklı mı?
@@ -136,7 +137,8 @@ Sonda tek satır: kaynaklar + *"Bu bülten yatırım tavsiyesi değildir."*
 
 Bugün bir hata tespit ettiysen — kendi yaptığın, önceki bültende bulduğun ya da bir kaynağın yanılttığı bir şey — repodaki **`notes/hatalar.md`** dosyasına işle:
 
-1. **Günlüğe ekle.** Dosyanın alt kısmındaki tarihli günlüğe yeni bir kayıt aç: ne yanlıştı, doğrusu ne, nasıl yakalandı.
+0. **Önce oku, sonra yaz.** Mevcut içeriği koru — dosyayı baştan yazma, sadece ekleme yap. Yazacağın hata dosyada zaten varsa (aynı hata daha önce kaydedilmişse) **yeni kayıt açma**; gerekiyorsa mevcut kaydı güncelle ya da dersi kalıcı kurallara taşı. Aynı hatanın her gün tekrar eklenmesi bu dosyayı işe yaramaz hale getirir.
+1. **Günlüğe ekle.** Dosyanın alt kısmındaki tarihli günlüğe yeni bir kayıt aç: ne yanlıştı, doğrusu ne, nasıl yakalandı. Sadece **doğruladığın** hataları yaz; şüpheyi hata diye kaydetme.
 2. **Ders kalıcıysa yukarı taşı.** Aynı hata daha önce de olmuşsa veya her gün geçerli bir kuralsa, dosyanın tepesindeki "Kalıcı kurallar" bölümüne **tek satırlık** bir kural ekle.
 3. **Commit'le ve push'la.** Oturum "detached HEAD" ile başlar ve yerel `main` geride olabilir; önce dalı düzelt, yoksa push `non-fast-forward` ile reddedilir:
    ```
@@ -170,7 +172,10 @@ Aşağıdakiler **24 Ağustos 2026** itibarıyla doğrudur. Tarih ilerledikçe d
 
 ## Gönderim öncesi son kontrol
 
+**Önce sayısal son doğrulama (zorunlu).** Mail gönderilmeden hemen önce bültendeki bütün rakamları bir kez daha geç: USD/TRY, EUR/TRY, EUR/USD, gram altın, ons altın, gümüş, BIST 100 ve bütün değişim yüzdeleri. Birbirleriyle ve kaynakla tutarlı mı, çapraz kontrol hâlâ tutuyor mu, metindeki rakam tablodakiyle aynı mı? Bu kontrolden sonra içeriğe dokunma; bir şey değiştirirsen değiştirdiğin veriyi baştan doğrula.
+
 - Güncel verileri kontrol ettim mi, rakamların saati doğru mu?
+- Farklı zaman noktalarındaki verileri (gün içi / önceki kapanış) karıştırdım mı?
 - Çapraz kontrol (gram/ons/kur) tuttu mu?
 - Takvim bilgisini iki kaynaktan doğruladım mı?
 - Her bölüm uzunluk sınırında mı? (Türkiye 3–4 cümle, altın 3, dünya 2–3)

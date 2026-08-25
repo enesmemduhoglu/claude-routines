@@ -8,7 +8,7 @@ Bulut ajanları yerel `~/.claude/skills/` dizinine erişemez. Bu repo, rutinleri
 
 | Skill | Ne yapar | Ne zaman |
 |---|---|---|
-| [`gunluk-ekonomi`](skills/gunluk-ekonomi/SKILL.md) | Günlük ekonomi/piyasa bültenini araştırır ve e-posta olarak gönderir | Her gün 09:00 TSİ |
+| [`gunluk-ekonomi`](skills/gunluk-ekonomi/SKILL.md) | Günlük ekonomi/piyasa bültenini araştırır ve e-posta olarak gönderir | Her gün 10:30 TSİ |
 
 ## Nasıl çalışıyor
 
