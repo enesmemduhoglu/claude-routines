@@ -15,7 +15,8 @@ Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıka
 3. **Neden-sonuç cümlelerini yazdıktan sonra bir kez daha oku.** Özellikle "güven / güvensizlik", "risk iştahı / kaçış", "alım / satım baskısı" gibi ters çevrilmesi kolay ifadeleri. Cümlenin anlamı kastettiğinin tersi olmasın.
 4. **Faiz yükselirken altın da yükseliyorsa** bunun okuması "ABD varlıklarına **güven kaybı**, yatırımcı ek getiri talep ediyor" yönündedir — "güven" değil.
 5. **Bulut ortamında bazı siteler egress proxy tarafından bloklu.** Güncel liste aşağıdaki "Operasyon notları" bölümünde. Zaman kaybetme — `WebSearch` sonuçlarındaki özetlerle çalış, `WebFetch`'i sadece bloklu olmayan sitelerde dene.
-6. **Bir kapanış rakamını ancak doğrulayabiliyorsan "kapanış" diye yaz.** Rutin 18:00'den önce çalışıyorsa BIST kapanışı henüz yayınlanmamış olur; son doğrulanan gün içi değeri saatiyle ver ve kapanışın doğrulanamadığını belirt.
+6. **Bir veriyi "bugün açıklandı" diye yazmadan önce kurumun yayım tarihini doğrula.** Haber siteleri TÜİK/TCMB verilerini günler sonra yeniden servis ediyor; aylık anket verilerinde (RKGE, KKO, tüketici güveni) haber tarihi ≠ yayım tarihi.
+7. **Bir kapanış rakamını ancak doğrulayabiliyorsan "kapanış" diye yaz.** Rutin 18:00'den önce çalışıyorsa BIST kapanışı henüz yayınlanmamış olur; son doğrulanan gün içi değeri saatiyle ver ve kapanışın doğrulanamadığını belirt.
 
 ---
 
@@ -29,13 +30,22 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
   git checkout main && git fetch origin main && git merge --ff-only origin/main
   ```
   Bu yapılmazsa push `non-fast-forward` hatasıyla reddediliyor — bu bir yetki sorunu değil, bayat yerel ref sorunudur.
-- **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
+- **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
+- **Pratikte `WebFetch` neredeyse hiç çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
 
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-08-25
+
+**`WebFetch` bloklarında büyük genişleme.** Denenen 10 adresin tamamı `EGRESS_BLOCKED` döndü: kitco.com, tcmb.gov.tr, bea.gov, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com (+ features.financialjuice.com, letterstoayounginvestor.substack.com). SKILL.md'nin birinci sıradaki güvenilirlik kaynakları (TCMB, BEA) doğrudan erişilemiyor. → Operasyon notlarına işlendi; varsayılan yöntem `WebSearch` özeti oldu.
+
+**Kaynak yine yanlış "rekor" dedi — kural 1 yakaladı.** Bugün gzt.com/halktv "ons altın 4.600 doları aşarak tarihi zirvesini yeniledi" başlığını attı; gerçek zirve 29 Ocak 2026'da $5.602, bugünkü seviye $4.635. Kullanılmadı, bültende ATH farkı açıkça yazıldı. Kural 1 ve 2 zaten kayıtlı — yeni kural açılmadı.
+
+**Yanlış tarihlendirilecekti: TCMB reel kesim güveni.** Arama sonuçları ağustos RKGE (102,4) ve KKO (%73,5) verilerini bugüne aitmiş gibi gösterdi; ikinci aramada yayım tarihinin 21.08.2026 olduğu görüldü. Türkiye bölümüne "bugün açıklandı" diye girmedi. → Ders: TCMB/TÜİK anket verilerinde haber tarihi değil, kurumun yayım tarihi esas alınmalı.
 
 ### 2026-08-24
 
