@@ -17,6 +17,8 @@ Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıka
 5. **Bulut ortamında bazı siteler egress proxy tarafından bloklu.** Güncel liste aşağıdaki "Operasyon notları" bölümünde. Zaman kaybetme — `WebSearch` sonuçlarındaki özetlerle çalış, `WebFetch`'i sadece bloklu olmayan sitelerde dene.
 6. **Bir veriyi "bugün açıklandı" diye yazmadan önce kurumun yayım tarihini doğrula.** Haber siteleri TÜİK/TCMB verilerini günler sonra yeniden servis ediyor; aylık anket verilerinde (RKGE, KKO, tüketici güveni) haber tarihi ≠ yayım tarihi.
 7. **Bir kapanış rakamını ancak doğrulayabiliyorsan "kapanış" diye yaz.** Rutin 18:00'den önce çalışıyorsa BIST kapanışı henüz yayınlanmamış olur; son doğrulanan gün içi değeri saatiyle ver ve kapanışın doğrulanamadığını belirt.
+8. **Arama motoru özetleri bir önceki günün borsa/açılış rakamını "bugün" diye sunuyor.** Bir açılış veya kapanış rakamını kullanmadan önce bilinen önceki kapanışla ya da dünkü bültenle çapraz kontrol et; yüzde değişim tutmuyorsa rakam başka bir güne aittir.
+9. **Sabah 10:30 civarı çalışırken BIST gün içi verisi genelde henüz indekslenmemiş oluyor.** Zaman harcama: önceki kapanışı "önceki kapanış" etiketiyle ver ve gün içi seviyenin doğrulanamadığını yaz.
 
 ---
 
@@ -30,7 +32,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
   git checkout main && git fetch origin main && git merge --ff-only origin/main
   ```
   Bu yapılmazsa push `non-fast-forward` hatasıyla reddediliyor — bu bir yetki sorunu değil, bayat yerel ref sorunudur.
-- **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
+- **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com, **riotimesonline.com**, **diken.com.tr**, **borsaistanbul.com** ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
 - **Pratikte `WebFetch` neredeyse hiç çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -38,6 +40,14 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-08-26
+
+**Arama özeti dünkü BIST açılışını bugüne ait gösterdi.** Bir arama "BIST 100, 26 Ağustos'ta 14.457,80'den açtı" dedi; bu rakam aslında 25 Ağustos açılışıydı (dünkü bültende aynen yazılıydı). Başka bir sonuç da 14.103 → 14.458,98 gibi çok daha eski bir güne ait seans verisi döndürdü. Önceki kapanışla (14.501) çapraz kontrol edilince yakalandı, kullanılmadı. → Kural 8.
+
+**Gümüş için üç farklı fiyat.** Aynı gün için $70,17 (JM Bullion, bayat sayfa değeri), $69,09 ▲%0,7 (Reuters, 00:11 GMT) ve $68,40 ▼%0,3 (gün içi) çıktı. Reuters'ın ima ettiği önceki kapanış (~$68,6) ile gün içi verinin ima ettiği önceki kapanış aynı çıkınca $68,4 doğrulandı; $70,17 elendi. → Yeni kural açılmadı; SKILL Adım 2'deki çapraz kontrol mantığı yeterliydi.
+
+**Üç yeni bloklu domain:** riotimesonline.com, diken.com.tr, borsaistanbul.com — üçü de `EGRESS_BLOCKED` döndürdü. → Operasyon notlarına eklendi.
 
 ### 2026-08-25
 
