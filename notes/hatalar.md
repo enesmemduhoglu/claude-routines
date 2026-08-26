@@ -18,7 +18,8 @@ Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıka
 6. **Bir veriyi "bugün açıklandı" diye yazmadan önce kurumun yayım tarihini doğrula.** Haber siteleri TÜİK/TCMB verilerini günler sonra yeniden servis ediyor; aylık anket verilerinde (RKGE, KKO, tüketici güveni) haber tarihi ≠ yayım tarihi.
 7. **Bir kapanış rakamını ancak doğrulayabiliyorsan "kapanış" diye yaz.** Rutin 18:00'den önce çalışıyorsa BIST kapanışı henüz yayınlanmamış olur; son doğrulanan gün içi değeri saatiyle ver ve kapanışın doğrulanamadığını belirt.
 8. **Arama motoru özetleri bir önceki günün borsa/açılış rakamını "bugün" diye sunuyor.** Bir açılış veya kapanış rakamını kullanmadan önce bilinen önceki kapanışla ya da dünkü bültenle çapraz kontrol et; yüzde değişim tutmuyorsa rakam başka bir güne aittir.
-9. **Sabah 10:30 civarı çalışırken BIST gün içi verisi genelde henüz indekslenmemiş oluyor.** Zaman harcama: önceki kapanışı "önceki kapanış" etiketiyle ver ve gün içi seviyenin doğrulanamadığını yaz.
+9. **Endeks ve kur rakamlarında birincil kaynak Google Finance.** `WebFetch` ile erişilebiliyor (26 Ağustos 2026'da doğrulandı), gün içi canlı değeri ve saat damgasını birlikte veriyor. BIST 100: `https://www.google.com/finance/quote/XU100:INDEXIST`. Değişim yüzdesini anlık değer ile "Previous close"tan kendin hesapla.
+10. **Rutin 10:30 TSİ'de çalışıyor, BIST 10:00'da açılıyor — bu saatte BIST için "önceki kapanış" verme.** Kullanıcı bu saati bilerek seçti: seans oturduktan sonraki gün içi seviyeyi görmek istiyor. Gün içi değeri kural 9'daki adresten al. Önceki kapanış sadece borsa gerçekten kapalıyken (hafta sonu/tatil) kullanılır.
 
 ---
 
@@ -33,7 +34,8 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
   ```
   Bu yapılmazsa push `non-fast-forward` hatasıyla reddediliyor — bu bir yetki sorunu değil, bayat yerel ref sorunudur.
 - **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com, **riotimesonline.com**, **diken.com.tr**, **borsaistanbul.com** ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
-- **Pratikte `WebFetch` neredeyse hiç çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
+- **`google.com/finance` `WebFetch` ile ÇALIŞIYOR — 26 Ağustos 2026'da doğrulandı.** BIST 100, USD/TRY, EUR/TRY, EUR/USD, S&P 500, Nasdaq, Dow adreslerinin hepsi açıldı ve gün içi değeri saat damgasıyla verdi. Aşağıdaki "WebFetch çalışmıyor" notu bu adresler için geçerli değil; kural 9'a bak.
+- **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
 
@@ -42,6 +44,8 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
 
 ### 2026-08-26
+
+**BIST 100 için gün içi yerine önceki kapanış verildi.** 10:30 TSİ çalışmasında tabloya "14.473 ▼ %0,19 · önceki kapanış" yazıldı ve Türkiye bölümünde "doğrulanabilir bir gün içi seviye henüz yok" denildi. Oysa borsa 30 dakikadır açıktı ve gün içi değer erişilebilirdi: aynı gün 10:34'te Google Finance 14.651,98 (▲ %1,23) gösteriyordu — yani gerçek hareket bültendekinin tam tersi yöndeydi. Kullanıcı yakaladı; rutini bu saate özellikle "piyasa otursun, güncel veriyi alayım" diye ayarlamış. → Kural 9 ve 10; SKILL.md'ye Google Finance kaynak tablosu ve Adım 2 madde 7 eklendi (düzenlemeyi kullanıcı yaptı). Aynı gün ajanın kendi eklediği "sabah 10:30'da BIST gün içi verisi indekslenmemiş olur, önceki kapanışı ver" kuralı **kaldırıldı** — yanlıştı, veri Google Finance'te mevcuttu.
 
 **Arama özeti dünkü BIST açılışını bugüne ait gösterdi.** Bir arama "BIST 100, 26 Ağustos'ta 14.457,80'den açtı" dedi; bu rakam aslında 25 Ağustos açılışıydı (dünkü bültende aynen yazılıydı). Başka bir sonuç da 14.103 → 14.458,98 gibi çok daha eski bir güne ait seans verisi döndürdü. Önceki kapanışla (14.501) çapraz kontrol edilince yakalandı, kullanılmadı. → Kural 8.
 

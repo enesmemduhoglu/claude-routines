@@ -33,9 +33,27 @@ Kullanıcı uzun bölümleri okumuyor. Yazdığının 3'te 1'i okunuyorsa fazla 
 
 Güncel internet araştırması yap. Son 24 saatteki önemli gelişmeleri, güncel piyasa verilerini ve bugün takip edilmesi gerekenleri kontrol et. Tek kaynağa güvenme.
 
+### Canlı fiyat kaynağı: Google Finance (birincil)
+
+Endeks ve kur rakamlarını **önce Google Finance'ten** al. Haber sitelerinden farklı olarak gün içi (canlı) değeri ve verinin saatini birlikte veriyor; egress proxy tarafından da bloklu değil. `WebFetch` ile çek:
+
+| Veri | URL |
+|---|---|
+| BIST 100 | `https://www.google.com/finance/quote/XU100:INDEXIST` |
+| USD/TRY | `https://www.google.com/finance/quote/USD-TRY` |
+| EUR/TRY | `https://www.google.com/finance/quote/EUR-TRY` |
+| EUR/USD | `https://www.google.com/finance/quote/EUR-USD` |
+| S&P 500 | `https://www.google.com/finance/quote/.INX:INDEXSP` |
+| Nasdaq | `https://www.google.com/finance/quote/.IXIC:INDEXNASDAQ` |
+| Dow | `https://www.google.com/finance/quote/.DJI:INDEXDJX` |
+
+Sayfa hem anlık değeri hem "Previous close"u veriyor — günlük değişim yüzdesini bu ikisinden **kendin hesapla**, sayfadaki yüzdeye güvenme. Sayfanın tepesindeki "Aug 26, 10:34:08 AM GMT+3" tipindeki damgayı oku: bültendeki saat bilgisi budur.
+
+Google Finance'te **olmayanlar** — gram/ons altın, gümüş, Brent, ABD 10 yıllık, dolar endeksi. Bunlar için mevcut kaynaklarla devam et (`XAU-USD` gibi adresler Google Finance'te sonuç vermiyor, deneme).
+
 Kaynak güvenilirlik sırası:
 1. Merkez bankaları ve resmî kurumlar (TCMB, TÜİK, Fed, BEA, BLS)
-2. Borsa ve resmî piyasa verileri
+2. **Google Finance** ve borsanın kendi resmî verisi — endeks ve kurlarda canlı rakam için
 3. Reuters, Bloomberg, FT, CNBC
 4. Diğer güvenilir ekonomi/finans yayınları
 
@@ -63,7 +81,8 @@ Her gelişme için sor: *bu, kullanıcının bugün piyasaları anlamasına ger�
 4. **"Rekor" kelimesini haberden kopyalama.** Türk haber siteleri "altın rekor kırdı" başlığını sık atıyor ve bu çoğu zaman yanlış oluyor. Rekor demeden önce **gerçek zirveyi (ATH) bul ve bugünkü fiyatla karşılaştır.** Aynısı "en yüksek seviye", "tarihi zirve" gibi ifadeler için de geçerli. Emin değilsen "X ayın zirvesi" gibi ölçülü bir ifade kullan.
 5. **Verinin saatini belirt.** Eski veya doğrulanamayan fiyatı güncelmiş gibi sunma.
 6. **Farklı zaman noktalarındaki verileri aynı kefeye koyma.** Bülten yazılırken BIST gün içi, ABD önceki kapanış, Avrupa ve Asya ise sezona/saate göre açık veya kapalı olabilir. Her rakamın hangi ana ait olduğunu bil; kapanış verisiyle gün içi veriyi "bugünkü değişim" diye tek listede sunma. Tabloda gerekiyorsa satırın notuna "önceki kapanış" yaz.
-7. **Beklenti ≠ gerçekleşen.** İkisini ayır. Rakam bulunamıyorsa uydurma, "veri yok" de.
+7. **Borsa açıkken "önceki kapanış" yazma.** Rutin 10:30 TSİ'de çalışıyor; BIST 10:00'da açılıyor, yani seans yarım saatlik. Bu saatte BIST 100 için **gün içi canlı değer** verilir — kullanıcı rutini bilerek bu saate ayarladı, önceki kapanışı zaten dünkü bültenden biliyor. Gün içi değeri Google Finance'ten al (yukarıdaki tablo) ve saatiyle yaz. Önceki kapanışa ancak borsa gerçekten kapalıysa (hafta sonu, tatil, açılış öncesi) düşülür ve bu belirtilir. Google Finance'e üst üste erişilemiyorsa nedenini bültende açıkça yaz.
+8. **Beklenti ≠ gerçekleşen.** İkisini ayır. Rakam bulunamıyorsa uydurma, "veri yok" de.
 
 ## Adım 3 — E-posta
 
@@ -90,7 +109,7 @@ Tablonun hemen altında vurgulu kutuda. Günü tek cümlede özetler.
 
 **4. 🇹🇷 TÜRKİYE** — en fazla 3–4 kısa cümle.
 BIST'in durumu, varsa TCMB/veri gelişmesi, kur. Bitti.
-*Not: BIST açılışı 10:00 TSİ. Çalıştırma anında borsa henüz açılmamışsa önceki kapanışı ver ve bunu belirt.*
+*Not: BIST açılışı 10:00 TSİ, rutin 10:30'da çalışıyor — normal koşulda burada gün içi canlı seviye olur (kaynak: Google Finance), önceki kapanış değil. Önceki kapanış sadece borsa kapalıyken (hafta sonu, tatil) kullanılır ve öyle olduğu yazılır.*
 
 **5. 🟡 ALTIN** — iki kutu (ons / gram) + en fazla 3 cümle.
 Gram hareketini **mutlaka ayrıştır**: ons kaynaklı mı, kur kaynaklı mı?
@@ -175,6 +194,7 @@ Aşağıdakiler **24 Ağustos 2026** itibarıyla doğrudur. Tarih ilerledikçe d
 **Önce sayısal son doğrulama (zorunlu).** Mail gönderilmeden hemen önce bültendeki bütün rakamları bir kez daha geç: USD/TRY, EUR/TRY, EUR/USD, gram altın, ons altın, gümüş, BIST 100 ve bütün değişim yüzdeleri. Birbirleriyle ve kaynakla tutarlı mı, çapraz kontrol hâlâ tutuyor mu, metindeki rakam tablodakiyle aynı mı? Bu kontrolden sonra içeriğe dokunma; bir şey değiştirirsen değiştirdiğin veriyi baştan doğrula.
 
 - Güncel verileri kontrol ettim mi, rakamların saati doğru mu?
+- Borsa açıkken BIST için gün içi değer mi verdim (önceki kapanış değil)?
 - Farklı zaman noktalarındaki verileri (gün içi / önceki kapanış) karıştırdım mı?
 - Çapraz kontrol (gram/ons/kur) tuttu mu?
 - Takvim bilgisini iki kaynaktan doğruladım mı?
