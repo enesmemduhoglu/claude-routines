@@ -19,7 +19,9 @@ Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıka
 7. **Bir kapanış rakamını ancak doğrulayabiliyorsan "kapanış" diye yaz.** Rutin 18:00'den önce çalışıyorsa BIST kapanışı henüz yayınlanmamış olur; son doğrulanan gün içi değeri saatiyle ver ve kapanışın doğrulanamadığını belirt.
 8. **Arama motoru özetleri bir önceki günün borsa/açılış rakamını "bugün" diye sunuyor.** Bir açılış veya kapanış rakamını kullanmadan önce bilinen önceki kapanışla ya da dünkü bültenle çapraz kontrol et; yüzde değişim tutmuyorsa rakam başka bir güne aittir.
 9. **Endeks ve kur rakamlarında birincil kaynak Google Finance.** `WebFetch` ile erişilebiliyor (26 Ağustos 2026'da doğrulandı), gün içi canlı değeri ve saat damgasını birlikte veriyor. BIST 100: `https://www.google.com/finance/quote/XU100:INDEXIST`. Değişim yüzdesini anlık değer ile "Previous close"tan kendin hesapla.
-10. **Rutin 10:30 TSİ'de çalışıyor, BIST 10:00'da açılıyor — bu saatte BIST için "önceki kapanış" verme.** Kullanıcı bu saati bilerek seçti: seans oturduktan sonraki gün içi seviyeyi görmek istiyor. Gün içi değeri kural 9'daki adresten al. Önceki kapanış sadece borsa gerçekten kapalıyken (hafta sonu/tatil) kullanılır.
+10. **Rutin 10:30 TSİ'de çalışıyor, BIST 10:00'da açılıyor — bu saatte BIST için "önceki kapanış" verme.** Kullanıcı bu saati bilerek seçti: seans oturduktan sonraki gün içi seviyeyi görmek istiyor. Gün içi değeri kural 9'daki adresten al. Önceki kapanış sadece borsa gerçekten kapalıyken (hafta sonu/tatil) ya da canlı kaynakların hiçbirine erişilemiyorken kullanılır — ikinci durumda nedeni bültende açıkça yaz.
+11. **Bir haberdeki fiyat doğru olsa bile yüzde değişimi yanlış olabilir.** Türk haber siteleri seviyeyi doğru verip yanına "%6 yükseldi" gibi uydurma bir oran ekliyor (bazen alış-satış makasını "değişim" sanıyor). Yüzdeyi haberden alma; **önceki kapanışla kendin hesapla.**
+12. **Bir "açılış/kapanış" rakamının hangi güne ait olduğunu çarpma testiyle doğrula.** Bilinen önceki kapanış × (1 + iddia edilen %) = iddia edilen seviye ise rakam o güne aittir; tutmuyorsa başka bir güne aittir. Arama motorları BIST açılışlarını sürekli bir gün ileri tarihliyor.
 
 ---
 
@@ -33,8 +35,9 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
   git checkout main && git fetch origin main && git merge --ff-only origin/main
   ```
   Bu yapılmazsa push `non-fast-forward` hatasıyla reddediliyor — bu bir yetki sorunu değil, bayat yerel ref sorunudur.
-- **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com, **riotimesonline.com**, **diken.com.tr**, **borsaistanbul.com** ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
-- **`google.com/finance` `WebFetch` ile ÇALIŞIYOR — 26 Ağustos 2026'da doğrulandı.** BIST 100, USD/TRY, EUR/TRY, EUR/USD, S&P 500, Nasdaq, Dow adreslerinin hepsi açıldı ve gün içi değeri saat damgasıyla verdi. Aşağıdaki "WebFetch çalışmıyor" notu bu adresler için geçerli değil; kural 9'a bak.
+- **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com, **riotimesonline.com**, **diken.com.tr**, **borsaistanbul.com**, **www.google.com / google.com (27 Ağu)**, **borsa.doviz.com**, **finans.mynet.com**, **stooq.com**, **goldprice.org**, **xe.com**, **tr.tradingview.com**, **uzmanpara.milliyet.com.tr**, **hangikredi.com**, **marketwatch.com** ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
+- **`google.com/finance` erişimi GÜNDEN GÜNE DEĞİŞİYOR.** 26 Ağustos 2026'da `WebFetch` ile çalıştı; **27 Ağustos 2026'da `www.google.com` ve `google.com` `EGRESS_BLOCKED` döndü.** Yani kural 9'daki birincil kaynak garanti değil — her çalışmada bir kez dene, açılmıyorsa vakit kaybetme ve `WebSearch` özetlerine geç.
+- **27 Ağustos 2026'da `WebFetch` hiçbir adreste çalışmadı.** Denenen 10 adresin 10'u da bloklandı: www.google.com, google.com, borsa.doviz.com, finans.mynet.com, stooq.com, goldprice.org, www.xe.com, tr.tradingview.com, uzmanpara.milliyet.com.tr, www.hangikredi.com (+ www.marketwatch.com "unable to fetch"). O gün bütün bülten `WebSearch` özetleriyle yazıldı.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -42,6 +45,16 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-08-27
+
+**Arama motoru, 26 Ağustos açılışını ısrarla "27 Ağustos açılışı" diye verdi.** Üç ayrı arama "27 Ağustos 2026'da BIST 100 %0,34 artışla 14.522,55 puandan açtı" dedi. Oysa bu rakam 26 Ağustos açılışıydı: 14.473,42 (= **25 Ağustos** kapanışı, dünkü bültende kayıtlı) × 1,0034 = 14.522,5. Kaynağın kendisi de (24saatgazetesi, trthaber) "26 Ağustos Çarşamba" diyordu. Çapraz kontrolle yakalandı, kullanılmadı. → Kural 8 yine işe yaradı; ayrıca **bir "açılış" rakamının hangi güne ait olduğu, bilinen önceki kapanışla çarpılarak test edilebilir.**
+
+**Aynı arama 14.473,42'yi "26 Ağustos kapanışı" diye de sundu — o da yanlıştı.** Gerçek 26 Ağustos kapanışı 14.610 (▲ %0,95, bankacılık öncülüğünde); 14.473,42 25 Ağustos kapanışıydı. Doğrulama: 14.473,42 × 1,0095 = 14.610,9 ✓.
+
+**Bir haber sitesi gram altın için "%6'yı aşan sert yükseliş", ons için "günlük %2,45 değer kazancı" dedi — ikisi de uydurma.** Gerçek hareketler ~%0,4 ve ~%0,3'tü. İlginç olan: aynı haberdeki **fiyat seviyeleri** (gram ₺7.132, ons $4.606) doğruydu ve çapraz kontrolü tutuyordu; yanlış olan sadece yüzdelerdi. "%6,35 fark" ifadesi de has altının alış-satış makasıydı. → Yeni kural 11.
+
+**Google Finance bugün bloklandı, `WebFetch` hiçbir adreste çalışmadı.** Dün (26 Ağustos) çalışan `google.com/finance` bugün `EGRESS_BLOCKED` döndü; denenen 10 adresin tamamı bloklu çıktı. Bu yüzden BIST için gün içi seviye doğrulanamadı ve tabloya 26 Ağustos kapanışı, nedeni bültende açıkça yazılarak kondu (SKILL Adım 2, madde 7). → Operasyon notları güncellendi.
 
 ### 2026-08-26
 
