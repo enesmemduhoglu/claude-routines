@@ -22,6 +22,7 @@ Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıka
 10. **Rutin 10:30 TSİ'de çalışıyor, BIST 10:00'da açılıyor — bu saatte BIST için "önceki kapanış" verme.** Kullanıcı bu saati bilerek seçti: seans oturduktan sonraki gün içi seviyeyi görmek istiyor. Gün içi değeri kural 9'daki adresten al. Önceki kapanış sadece borsa gerçekten kapalıyken (hafta sonu/tatil) ya da canlı kaynakların hiçbirine erişilemiyorken kullanılır — ikinci durumda nedeni bültende açıkça yaz.
 11. **Bir haberdeki fiyat doğru olsa bile yüzde değişimi yanlış olabilir.** Türk haber siteleri seviyeyi doğru verip yanına "%6 yükseldi" gibi uydurma bir oran ekliyor (bazen alış-satış makasını "değişim" sanıyor). Yüzdeyi haberden alma; **önceki kapanışla kendin hesapla.**
 12. **Bir "açılış/kapanış" rakamının hangi güne ait olduğunu çarpma testiyle doğrula.** Bilinen önceki kapanış × (1 + iddia edilen %) = iddia edilen seviye ise rakam o güne aittir; tutmuyorsa başka bir güne aittir. Arama motorları BIST açılışlarını sürekli bir gün ileri tarihliyor.
+13. **Borsa açıkken sana verilen "bugünkü kapanış" bir önceki günün kapanışıdır.** Arama özetleri saat 10–11'de "BIST 100 bugün %X düşüşle Y puandan kapattı" diyebiliyor. Rakamı atma — çarpma testiyle hangi güne ait olduğunu bul ve o günün kapanışı olarak kullan.
 
 ---
 
@@ -38,6 +39,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com, **riotimesonline.com**, **diken.com.tr**, **borsaistanbul.com**, **www.google.com / google.com (27 Ağu)**, **borsa.doviz.com**, **finans.mynet.com**, **stooq.com**, **goldprice.org**, **xe.com**, **tr.tradingview.com**, **uzmanpara.milliyet.com.tr**, **hangikredi.com**, **marketwatch.com** ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
 - **`google.com/finance` erişimi GÜNDEN GÜNE DEĞİŞİYOR.** 26 Ağustos 2026'da `WebFetch` ile çalıştı; **27 Ağustos 2026'da `www.google.com` ve `google.com` `EGRESS_BLOCKED` döndü.** Yani kural 9'daki birincil kaynak garanti değil — her çalışmada bir kez dene, açılmıyorsa vakit kaybetme ve `WebSearch` özetlerine geç.
 - **27 Ağustos 2026'da `WebFetch` hiçbir adreste çalışmadı.** Denenen 10 adresin 10'u da bloklandı: www.google.com, google.com, borsa.doviz.com, finans.mynet.com, stooq.com, goldprice.org, www.xe.com, tr.tradingview.com, uzmanpara.milliyet.com.tr, www.hangikredi.com (+ www.marketwatch.com "unable to fetch"). O gün bütün bülten `WebSearch` özetleriyle yazıldı.
+- **28 Ağustos 2026'da da `WebFetch` hiçbir adreste çalışmadı — üst üste ikinci gün.** Denenen 13 adres bloklandı: www.google.com, open.er-api.com, api.gold-api.com, finans.sabah.com.tr, www.ekonomist.com.tr, www.turcomoney.com, www.finansopia.com, www.haberturk.com, www.foreks.com, deebi.net, www.borsagundem.com.tr, www.tradingview.com, stockanalysis.com. Ayrıca markets.ft.com ve www.wsj.com "unable to fetch" döndü. Google Finance iki gündür kapalı — **kural 9'daki birincil kaynağı artık istisna say, kural değil.**
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -45,6 +47,16 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-08-28
+
+**Arama motoru 24 Ağustos açılışını üç ayrı aramada "28 Ağustos açılışı" diye verdi.** "BIST 100 açılışta %0,85 artışla 14.637,72 puana çıktı, önceki gün %0,82 ile 14.514,82'den kapatmıştı" — 14.514,82 **21 Ağustos (Cuma)** kapanışıydı, yani rakam 24 Ağustos Pazartesi açılışına aitti (deebi.net başlığı da "Borsa yeni haftaya 14.637,72 puandan başladı" diyordu). Çarpma testiyle yakalandı, kullanılmadı. → Kural 12 ikinci kez işe yaradı.
+
+**Saat 10:34'te bir arama "BIST 100, 28 Ağustos'ta %0,24 düşüşle 14.575,51 puandan kapattı" dedi — borsa açıktı.** Rakam doğruydu ama gün yanlıştı: 14.610,92 (26 Ağustos kapanışı) × 0,9976 = 14.575,8 ✓, yani bu **27 Ağustos** kapanışıydı. Aynı gün başka bir arama BIST için 13.821,97 (%+0,49) verdi — haftalarca eski, elendi. → Yeni kural 13.
+
+**vittarthi.com 27 Ağustos ABD kapanışlarını yanlış verdi** (S&P 7.673,04 %+0,42; Dow 53.195,36). Doğrusu AP kaynaklı veride S&P 7.730,99 (+55,29 puan), Nasdaq 26.541,35 (+411,16), Dow 53.569,44 (+105,56); puan farkı/seviye oranı iddia edilen yüzdelerle birebir tuttu. → Yeni kural açılmadı; ABD kapanışlarında "puan değişimi ÷ seviye" testi yeterli.
+
+**Google Finance ikinci gün de bloklu; gün içi BIST yine doğrulanamadı.** 13 adres denendi, hepsi kapalı. Tabloya 27 Ağustos kapanışı kondu, nedeni bültende açıkça yazıldı. → Operasyon notları güncellendi.
 
 ### 2026-08-27
 
