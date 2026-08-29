@@ -21,8 +21,9 @@ Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıka
 9. **Endeks ve kur rakamlarında birincil kaynak Google Finance.** `WebFetch` ile erişilebiliyor (26 Ağustos 2026'da doğrulandı), gün içi canlı değeri ve saat damgasını birlikte veriyor. BIST 100: `https://www.google.com/finance/quote/XU100:INDEXIST`. Değişim yüzdesini anlık değer ile "Previous close"tan kendin hesapla.
 10. **Rutin 10:30 TSİ'de çalışıyor, BIST 10:00'da açılıyor — bu saatte BIST için "önceki kapanış" verme.** Kullanıcı bu saati bilerek seçti: seans oturduktan sonraki gün içi seviyeyi görmek istiyor. Gün içi değeri kural 9'daki adresten al. Önceki kapanış sadece borsa gerçekten kapalıyken (hafta sonu/tatil) ya da canlı kaynakların hiçbirine erişilemiyorken kullanılır — ikinci durumda nedeni bültende açıkça yaz.
 11. **Bir haberdeki fiyat doğru olsa bile yüzde değişimi yanlış olabilir.** Türk haber siteleri seviyeyi doğru verip yanına "%6 yükseldi" gibi uydurma bir oran ekliyor (bazen alış-satış makasını "değişim" sanıyor). Yüzdeyi haberden alma; **önceki kapanışla kendin hesapla.**
-12. **Bir "açılış/kapanış" rakamının hangi güne ait olduğunu çarpma testiyle doğrula.** Bilinen önceki kapanış × (1 + iddia edilen %) = iddia edilen seviye ise rakam o güne aittir; tutmuyorsa başka bir güne aittir. Arama motorları BIST açılışlarını sürekli bir gün ileri tarihliyor.
+12. **Bir "açılış/kapanış" rakamının hangi güne ait olduğunu çarpma testiyle doğrula.** Bilinen önceki kapanış × (1 + iddia edilen %) = iddia edilen seviye ise rakam o güne aittir; tutmuyorsa başka bir güne aittir. Arama motorları BIST açılışlarını sürekli bir gün ileri tarihliyor. Aynı test **haftalık** yüzdeyle de yapılır: geçen cuma kapanışı × (1 + haftalık %) = bu cuma kapanışı. Cuma kapanışını doğrulamanın en güvenilir yolu budur.
 13. **Borsa açıkken sana verilen "bugünkü kapanış" bir önceki günün kapanışıdır.** Arama özetleri saat 10–11'de "BIST 100 bugün %X düşüşle Y puandan kapattı" diyebiliyor. Rakamı atma — çarpma testiyle hangi güne ait olduğunu bul ve o günün kapanışı olarak kullan.
+14. **Tarih/bayatlık testini sadece BIST'e uygulama — kur, Brent ve tahvil faizine de uygula.** Canlı kaynaklar bloklu olduğunda arama özetleri kur ve emtia için de bir önceki günün seviyesini "bugün" diye veriyor; bu rakamlar sakin göründüğü için fark edilmeden geçiyor. Her rakamı dünkü bültendeki değerle karşılaştır: değişim tam olarak sıfırsa veri büyük ihtimalle bayattır, "yatay" değil.
 
 ---
 
@@ -37,7 +38,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
   ```
   Bu yapılmazsa push `non-fast-forward` hatasıyla reddediliyor — bu bir yetki sorunu değil, bayat yerel ref sorunudur.
 - **Egress proxy tarafından bloklu siteler (güncel liste):** bloomberght.com, investing.com, finance.yahoo.com, cnbc.com, tradingeconomics.com, aa.com.tr, ekonomim.com, bigpara.hurriyet.com.tr, altin.doviz.com, fxstreet.com, apara.com.tr, kitco.com, **tcmb.gov.tr**, **bea.gov**, halktv.com.tr, paraborsa.net, dunya.com, endeks24.com, ekonomidunya.com, yelza.com, giynikgazetesi.com, features.financialjuice.com, letterstoayounginvestor.substack.com, **riotimesonline.com**, **diken.com.tr**, **borsaistanbul.com**, **www.google.com / google.com (27 Ağu)**, **borsa.doviz.com**, **finans.mynet.com**, **stooq.com**, **goldprice.org**, **xe.com**, **tr.tradingview.com**, **uzmanpara.milliyet.com.tr**, **hangikredi.com**, **marketwatch.com** ve doğrudan `curl` API çağrıları. `WebFetch` denemeden önce bu listeye bak; `WebSearch` özetleri çalışıyor.
-- **`google.com/finance` erişimi GÜNDEN GÜNE DEĞİŞİYOR.** 26 Ağustos 2026'da `WebFetch` ile çalıştı; **27 Ağustos 2026'da `www.google.com` ve `google.com` `EGRESS_BLOCKED` döndü.** Yani kural 9'daki birincil kaynak garanti değil — her çalışmada bir kez dene, açılmıyorsa vakit kaybetme ve `WebSearch` özetlerine geç.
+- **`google.com/finance` erişimi GÜNDEN GÜNE DEĞİŞİYOR.** 26 Ağustos 2026'da `WebFetch` ile çalıştı; **27, 28 ve 29 Ağustos 2026'da üst üste `EGRESS_BLOCKED` döndü.** Yani kural 9'daki birincil kaynak garanti değil — her çalışmada bir kez dene, açılmıyorsa vakit kaybetme ve `WebSearch` özetlerine geç.
 - **27 Ağustos 2026'da `WebFetch` hiçbir adreste çalışmadı.** Denenen 10 adresin 10'u da bloklandı: www.google.com, google.com, borsa.doviz.com, finans.mynet.com, stooq.com, goldprice.org, www.xe.com, tr.tradingview.com, uzmanpara.milliyet.com.tr, www.hangikredi.com (+ www.marketwatch.com "unable to fetch"). O gün bütün bülten `WebSearch` özetleriyle yazıldı.
 - **28 Ağustos 2026'da da `WebFetch` hiçbir adreste çalışmadı — üst üste ikinci gün.** Denenen 13 adres bloklandı: www.google.com, open.er-api.com, api.gold-api.com, finans.sabah.com.tr, www.ekonomist.com.tr, www.turcomoney.com, www.finansopia.com, www.haberturk.com, www.foreks.com, deebi.net, www.borsagundem.com.tr, www.tradingview.com, stockanalysis.com. Ayrıca markets.ft.com ve www.wsj.com "unable to fetch" döndü. Google Finance iki gündür kapalı — **kural 9'daki birincil kaynağı artık istisna say, kural değil.**
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
@@ -47,6 +48,16 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-08-29
+
+**Dünkü (28 Ağustos) bültende Brent ve kurlar bir gün bayattı.** Brent "$88,2 ▼%0,3" yazılmıştı; Reuters uzlaşma verisine göre 28 Ağustos kapanışı $89,31 (▼39 sent, %0,43) ve dolayısıyla 27 Ağustos uzlaşması $89,70'ti. Aynı şekilde dolar/TL 48,14 ve euro/TL 56,10 yazılmıştı; bunlar 27 Ağustos seviyeleriydi, cuma sabahı kurlar zaten 48,24 ve 56,24'tü. Bugünkü bültene *Düzeltme* notu kondu. → Yeni kural 14: bayatlık testi kur ve emtiaya da uygulanmalı.
+
+**Cuma kapanışı haftalık yüzdeyle doğrulandı.** Arama motorları yine 27 Ağustos kapanışını (14.575,51) "28 Ağustos kapanışı" diye sundu. Doğru rakam borsaningundemi'nin "haftalık %0,87 değer kazandı" haberindeki 14.641,56'ydı: 14.514,82 (21 Ağustos kapanışı) × 1,0087 = 14.641,1 ✓. Ayrıca 14.641,56 / 14.575,51 = %+0,45 günlük. → Kural 12 haftalık test ile genişletildi.
+
+**Altın için altı farklı cuma rakamı çıktı; gram/ons çaprazı ayıkladı.** USAGOLD $4.608 (▲%0,41), Yahoo $4.650,90, Convex $4.631,5, Reuters 0157 GMT $4.576, Reuters 1452 GMT $4.563, bloomingbit $4.464 (▼~%3). Cumartesi günü Türk kaynaklarındaki gram altın ₺6.908 ile çapraz kontrol yapıldı: 6.908 × 31,1035 ÷ 48,24 = $4.453 — yani kapanış $4.464 civarıydı, ilk dört rakam gün içi/bayat değerlerdi. Gümüşte de aynı durum: $67,09 (▼%3) ara okuma, $66,15 (▼%4,48) günlük kapanış. → Yeni kural açılmadı; SKILL Adım 2'deki çapraz kontrol yeterliydi.
+
+**Google Finance üst üste üçüncü gün bloklu.** `www.google.com` yine `EGRESS_BLOCKED` döndü. Hafta sonu olduğu için gün içi veriye ihtiyaç yoktu, bülten cuma kapanışlarıyla yazıldı. → Operasyon notları güncellendi.
 
 ### 2026-08-28
 
