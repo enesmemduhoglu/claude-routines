@@ -42,6 +42,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`google.com/finance` erişimi GÜNDEN GÜNE DEĞİŞİYOR.** 26 Ağustos 2026'da `WebFetch` ile çalıştı; **27, 28, 29, 30 ve 31 Ağustos 2026'da üst üste `EGRESS_BLOCKED` döndü.** Yani kural 9'daki birincil kaynak garanti değil — her çalışmada bir kez dene, açılmıyorsa vakit kaybetme ve `WebSearch` özetlerine geç.
 - **27 Ağustos 2026'da `WebFetch` hiçbir adreste çalışmadı.** Denenen 10 adresin 10'u da bloklandı: www.google.com, google.com, borsa.doviz.com, finans.mynet.com, stooq.com, goldprice.org, www.xe.com, tr.tradingview.com, uzmanpara.milliyet.com.tr, www.hangikredi.com (+ www.marketwatch.com "unable to fetch"). O gün bütün bülten `WebSearch` özetleriyle yazıldı.
 - **28 Ağustos 2026'da da `WebFetch` hiçbir adreste çalışmadı — üst üste ikinci gün.** Denenen 13 adres bloklandı: www.google.com, open.er-api.com, api.gold-api.com, finans.sabah.com.tr, www.ekonomist.com.tr, www.turcomoney.com, www.finansopia.com, www.haberturk.com, www.foreks.com, deebi.net, www.borsagundem.com.tr, www.tradingview.com, stockanalysis.com. Ayrıca markets.ft.com ve www.wsj.com "unable to fetch" döndü. Google Finance iki gündür kapalı — **kural 9'daki birincil kaynağı artık istisna say, kural değil.**
+- **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -49,6 +50,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-09-01
+
+**Trading Economics aynı çalışmada altın ve gümüş için birbirini tutmayan rakamlar verdi.** Altın: "$4.450,95 (31 Ağu)" ve "$4.456,86 (1 Eylül)"; gümüş: "$67,11 (31 Ağu, %+1,09)", "$66,61 (1 Eylül, %+0,14)" ve "$66,2 salı, iki haftanın dibi". Doğru seviye gram/ons/kur çaprazıyla bulundu: ₺6.877,84 × 31,1035 ÷ 48,274 = $4.431,5, yani Türk kaynaklarının verdiği ons $4.433 doğru, TE'nin $4.456'sı değil. Gümüş altın/gümüş oranıyla ayıklandı (4.433/66,6 = 66,6; dün 66,8). → Operasyon notlarına eklendi; yeni kalıcı kural açılmadı, mevcut çapraz kontroller yetti (kurallar dolu, 15/15).
+
+**Google Finance üst üste altıncı gün bloklu; BIST gün içi yine doğrulanamadı.** Tabloya bugünkü açılış (14.324,75, ▼%0,06) kondu ve nedeni bültende yazıldı. İlgili bir gözlem: dünkü bülten de sadece açılışı (14.604,26, ▼%0,25) verebilmişti, oysa 31 Ağustos seansı **%2,10 düşüşle 14.334,06'dan** kapandı — yani gün içi veri alınamadığında bültenin BIST tablosu günün asıl hikâyesini kaçırabiliyor. Bugün bu, gelişmeler bölümüne ayrı madde olarak kondu. → Operasyon notları güncellendi.
 
 ### 2026-08-31
 
