@@ -51,6 +51,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
 
+### 2026-09-12
+
+**11 Eylül bülteninde 10 Eylül ABD borsa kapanışları yanlıştı.** Dün Dow 52.380,66 (▼%0,8), S&P 7.636,36 (▼%0,5), Nasdaq 26.253,34 (▼%0,6) yazılmıştı. 11 Eylül kapanışları (Dow 52.573,29 +509,19 puan, S&P 7.656,98 +65,28 puan, Nasdaq 26.333,04 +251,31 puan) üç bağımsız kaynakla (Yahoo, ABC News wire, stockmarketwatch) doğrulandıktan sonra nokta değişimini geriye çıkarınca gerçek 10 Eylül kapanışı ortaya çıktı: Dow 52.064,10 (▼316,56 puan, %0,6), S&P 7.591,70 (▼44,66 puan, %0,6), Nasdaq 26.081,72 (▼171,62 puan, %0,7) — üçü de ayrıca "S&P dördüncü gün üst üste kayıp" anlatısıyla tutarlı. Bugünkü bültene *Düzeltme* notu kondu. Hata muhtemelen 10 Eylül çalışmasında bir haber sitesinin gün içi/yanlış okumasının kapanış diye kullanılmasından kaynaklandı ama kaynağı geriye dönük tespit edilemedi. **Yeni kural açılmadı** — kural 13'ün "puan değişimi ÷ seviye" testi zaten bu tür hataları yakalamak için var, bir sonraki çalışmada aynı teste tabi tutulmalı.
+
+**Altın/gümüş için çelişen okumalar yine altın/gümüş oranıyla ayıklandı.** 11 Eylül için ons $4.324,79 (bazı TR kaynakları, muhtemelen CPI öncesi/bayat) ile $4.385,61 (USAGOLD, CPI sonrası, gram/USDTRY çaprazıyla ₺6.852 hesaplanarak ₺6.842 TR kapanışına yakın çıktı) arasında ayrıştı; USAGOLD'un yayımladığı 67,6 oranı ve gümüş $64,90 rakamıyla iç tutarlılığı ($4.385,61/67,6=$64,87≈$64,90) daha güçlü olduğu için o kullanıldı. riotimesonline yine tutarsız rakamlar verdi ($4.348 "cuma kapanışı", $4.461 "cumartesi") — kullanılmadı, kural 5/13 zaten kapsıyor.
+
 ### 2026-09-07
 
 **E-postanın HTML gövdesi yerine literal `$(cat file)` metni gönderildi.** İlk gönderimde `send_message` aracının `htmlBody` parametresine, içeriği doğrudan yazmak yerine bir shell komut ikamesi gibi `$(cat file)` yazıldı — araç bunu genişletmedi, string olarak olduğu gibi gönderdi, alıcılar bozuk bir HTML gördü (düz metin gövdesi doğruydu). Hata, gönderim sonrası `get_thread` ile mesaj kontrol edilince fark edildi (`htmlBody` alanında birebir `$(cat file)` görüldü). Aynı thread'e tam HTML içeriğiyle düzeltilmiş bir e-posta gönderildi ve düzeltme notu eklendi. **Ders: araç parametrelerine placeholder değil, gerçek içerik yazılmalı; gönderim sonrası kontrol zorunlu tutulmalı.** → Yeni kural 15 (eski 9-10 birleştirilip SKILL.md'ye taşınan kısımlar kısaltıldı, kurallar dolu kalmaya devam ediyor).
