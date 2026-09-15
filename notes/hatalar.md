@@ -51,6 +51,16 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
 
+### 2026-09-15
+
+**Arama motoru 11 Eylül ABD borsa kapanışlarını iki ayrı aramada "14 Eylül kapanışı" diye verdi.** S&P 7.656,98 (+65,28) / Dow 52.573,29 (+509,19) / Nasdaq 26.333,04 (+251,31) — bunlar hatalar.md'nin 12 Eylül kaydındaki 11 Eylül rakamlarıyla birebir aynıydı, yani bayattı. Doğru 14 Eylül kapanışı üçüncü bir aramayla (AP/kvue.com + TheStreet) bulundu: S&P 7.619,98 (▼%0,48), Nasdaq 26.186,41 (▼%0,56), Dow 52.421,20 (▼152,09 puan, %0,29) — puan farkı testiyle iki kaynak arasında da tutarlıydı (52.573,29−152,09=52.421,20 ✓) ve Brent'in dünkü $105,68 kapanışıyla (bugünkü $107,3'e göre %1,5 artış) uyumluydu. Yanlış rakam bültene girmedi. **Yeni kural açılmadı** — kural 13/14 zaten "S&P/Nasdaq/Dow kapanışını dünkü bültenle karşılaştır, birebir aynıysa bayattır" diyor; bu vaka o kuralın işe yaradığının somut bir örneği.
+
+**Bir arama sonucu altın için tamamen uydurma bir rakam verdi.** "Spot gold settled near $1,975" (14 Eylül) — gerçek seviyenin ($4.280 civarı) dörtte biri, aynı özet içinde "$4.375" gibi doğru mertebede başka bir rakam da vardı. Gram/ons/kur çaprazıyla anında elendi, kullanılmadı. Ayrı kural açılmadı; SKILL Adım 2'deki çapraz kontrol yeterliydi.
+
+**TÜİK ağustos enflasyonu için arama özeti "%21,51'e geriledi" dedi — bu da yanlıştı.** Temmuz %31,75'ten bir ayda %21,51'e düşüş inandırıcı değildi (10 puanlık sıçrama). İkinci bir aramayla doğrusu bulundu: TÜİK ağustos yıllık %31,51 (aylık %1,84), ENAG ağustos yıllık %49,03 (aylık %2,24) — temmuzdan sadece 0,24 puanlık gerileme. Bültende kullanılmadı (zaten bu ayın enflasyon verisi güncel gelişme değildi, bültene hiç girmedi). Ayrı kural açılmadı.
+
+**Google Finance yine bloklu.** `www.google.com` (XU100/USD-TRY/EUR-TRY/EUR-USD, 4 adres) yine `EGRESS_BLOCKED` döndü — üst üste devam ediyor. BIST için 10:00 açılış verisi (14.219,98 ▼%0,11) kullanıldı ve nedeni bültende belirtildi; çarpma testiyle doğrulandı (14.235,83 × 0,9989 = 14.220,2 ✓).
+
 ### 2026-09-14
 
 **Google Finance yine bloklu; iki yeni bloklu domain bulundu.** `www.google.com` (XU100/USD-TRY/EUR-USD) yine `EGRESS_BLOCKED` döndü. Ayrıca `www.doviz.com` ve `www.sozcu.com.tr` ilk kez denendi, ikisi de bloklandı — BIST için 09:30 açılış sonrası daha güncel bir gün içi rakam aranırken. Tabloya 09:30 açılış verisi (14.339,28, ▼%0,88) kondu ve çarpma testiyle doğrulandı (14.467,25 × 0,9912 = 14.339,4 ✓); nedeni bültende açıkça yazıldı. → Operasyon notları güncellendi.
