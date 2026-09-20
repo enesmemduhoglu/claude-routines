@@ -51,6 +51,10 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
 
+### 2026-09-20
+
+**Dünkü (19 Eylül) bültende ABD borsa kapanışları bir gün bayattı — perşembe (17 Eylül) Fed sonrası rallisi cuma (18 Eylül) kapanışı diye yazılmıştı.** Dünkü bültende "S&P %1,1, Nasdaq %1,7, Dow %0,6, haftayı kazançla tamamladı" denilmişti; bu yüzdeler birebir 17 Eylül kapanışına (S&P 7.637,76 ▲%1,14, Nasdaq 26.418,30 ▲%1,69, Dow 51.778,04 ▲%0,61) aitti. Gerçek 18 Eylül kapanışı S&P 7.650,50 (▲%0,17), Nasdaq 26.522,55 (▲%0,39), Dow 51.682,64 (▼%0,18) — hafta genelinde sadece Nasdaq kazançlıydı (+%0,7), Dow üçüncü kez üst üste kayıplı hafta yaşadı (-%1,7), S&P hafif eksideydi (~-%0,1). Zincirleme puan testiyle doğrulandı (7.637,76×1,0017≈7.651 ✓, 26.418,30×1,0039≈26.521 ✓, 51.778,04×0,9982≈51.685 ✓) ve bugünkü bültene Düzeltme notu kondu. Yeni kural açılmadı — kural 13/14'ün "dünkü bültenin kendisiyle karşılaştır" testi bu hatayı zaten kapsıyordu, bu kez uygulanınca yakalandı.
+
 ### 2026-09-14
 
 **Google Finance yine bloklu; iki yeni bloklu domain bulundu.** `www.google.com` (XU100/USD-TRY/EUR-USD) yine `EGRESS_BLOCKED` döndü. Ayrıca `www.doviz.com` ve `www.sozcu.com.tr` ilk kez denendi, ikisi de bloklandı — BIST için 09:30 açılış sonrası daha güncel bir gün içi rakam aranırken. Tabloya 09:30 açılış verisi (14.339,28, ▼%0,88) kondu ve çarpma testiyle doğrulandı (14.467,25 × 0,9912 = 14.339,4 ✓); nedeni bültende açıkça yazıldı. → Operasyon notları güncellendi.
