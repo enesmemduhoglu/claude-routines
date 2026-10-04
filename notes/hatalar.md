@@ -43,6 +43,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **27 Ağustos 2026'da `WebFetch` hiçbir adreste çalışmadı.** Denenen 10 adresin 10'u da bloklandı: www.google.com, google.com, borsa.doviz.com, finans.mynet.com, stooq.com, goldprice.org, www.xe.com, tr.tradingview.com, uzmanpara.milliyet.com.tr, www.hangikredi.com (+ www.marketwatch.com "unable to fetch"). O gün bütün bülten `WebSearch` özetleriyle yazıldı.
 - **28 Ağustos 2026'da da `WebFetch` hiçbir adreste çalışmadı — üst üste ikinci gün.** Denenen 13 adres bloklandı: www.google.com, open.er-api.com, api.gold-api.com, finans.sabah.com.tr, www.ekonomist.com.tr, www.turcomoney.com, www.finansopia.com, www.haberturk.com, www.foreks.com, deebi.net, www.borsagundem.com.tr, www.tradingview.com, stockanalysis.com. Ayrıca markets.ft.com ve www.wsj.com "unable to fetch" döndü. Google Finance iki gündür kapalı — **kural 9'daki birincil kaynağı artık istisna say, kural değil.**
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
+- **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -50,6 +51,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-10-04
+
+**Arama motoru, "Cumartesi" gün adıyla eşleşen bir ayı önceki haberi bugünkü gelişme gibi sundu — bültene girmeden yakalandı.** "Hürmüz Boğazı İran tanker gerilimi Saturday October 3 2026" sorgusu, İran'ın ABD donanma gemilerine balistik füze attığı ve ABD'nin karşılığında 3 İran tankerini vurduğu haberi getirdi; başlıkta "Saturday" geçiyordu ve olay bugünün (4 Ekim Pazar, bülten hafta sonunun ikinci günü olduğu için Cumartesi'ye atıfla aranmıştı) gelişmesi gibi göründü. Kaynak URL'leri incelenince haberin **5 Eylül 2026** tarihli olduğu ortaya çıktı — 5 Eylül 2026 da bir Cumartesi (`date -d` ile doğrulandı), yani arama motoru gün adını eşleştirip bir ay eski bir askeri çatışmayı güncelmiş gibi sunmuş. Bültene hiç girmedi. **Ders: bir haberde yalnızca gün adı geçiyorsa (ay/yıl yok) ve o gün adı sorguda da varsa, haberin asıl tarihini URL'den veya metninden doğrulamadan "bugün" sayma** — kural 8/12/13'ün tarih-karıştırma ailesine yeni bir varyant. Kalıcı kurallar dolu (15/15), yeni madde açılmadı; mevcut "çarpma testi" felsefesi genelleştirilerek haber tarihlerine de uygulanabilir.
+
+**Ons altının 2 Ekim Cuma kapanışı için yön bile çelişkiliydi (±%0,2 değil, yukarı/aşağı) — USAGOLD başlığıyla çözüldü.** Bazı kaynaklar $4.140-4.141 (▼%0,9) verirken, USAGOLD'un günlük raporu "Physical Gold Climbs To $4,192 As Payrolls Miss Cools October Rate-Hike Bets" başlığıyla ▲yönü ve zayıf istihdam verisi mekanizmasını doğrudan teyit etti; bu, önceki bültenin kendi anlatısıyla ($4.186 ▲%0,2) örtüşüyordu. Düşüş rakamları kullanılmadı. Yeni kural açılmadı; USAGOLD zaten güvenilir kaynaklar arasında.
 
 ### 2026-09-20
 
