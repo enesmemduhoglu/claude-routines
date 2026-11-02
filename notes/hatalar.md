@@ -44,6 +44,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **28 Ağustos 2026'da da `WebFetch` hiçbir adreste çalışmadı — üst üste ikinci gün.** Denenen 13 adres bloklandı: www.google.com, open.er-api.com, api.gold-api.com, finans.sabah.com.tr, www.ekonomist.com.tr, www.turcomoney.com, www.finansopia.com, www.haberturk.com, www.foreks.com, deebi.net, www.borsagundem.com.tr, www.tradingview.com, stockanalysis.com. Ayrıca markets.ft.com ve www.wsj.com "unable to fetch" döndü. Google Finance iki gündür kapalı — **kural 9'daki birincil kaynağı artık istisna say, kural değil.**
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
+- **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -51,6 +52,10 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-02
+
+**İki yeni bloklu domain bulundu; `WebFetch` bugün denenen 4 adresin 4'ünde de başarısız oldu.** `www.isabullion.com` ve `mitrade.com` ilk kez denendi, ikisi de DNS çözümlemesinde (`ENOTFOUND`) başarısız oldu — `www.google.com` ve `www.kitco.com` zaten bilinen bloklu adreslerdi. Sonuç: ons altın, gümüş, Brent, ABD 10 yıllık faiz ve dolar endeksi için cuma (30 Ekim) kapanışından daha güncel, doğrulanabilir bir Pazartesi rakamı bulunamadı; bültende bu durum açıkça belirtildi ve bu kalemler cuma seviyeleriyle verildi. BIST 100 (açılış) ve dolar/TL (serbest piyasa, tarihli Türkçe haber siteleri üzerinden) için güncel rakam bulunabildi. → Operasyon notlarındaki bloklu domain listesi güncellendi.
 
 ### 2026-10-04
 
