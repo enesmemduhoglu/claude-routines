@@ -45,6 +45,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
+- **4 Kasım 2026'da Google Finance dahil denenen 4 adresin 4'ü de `ENOTFOUND` (DNS çözümlemesi hatası, "outside session's allowed network domains") döndürdü** — `www.google.com`, `www.ntv.com.tr`, `www.cnbce.com`. Önceki günlerin `EGRESS_BLOCKED` hatasından farklı bir hata mesajı ama pratik sonuç aynı: `WebFetch` o gün hiç çalışmadı. BIST 100, dolar/TL, euro/TL ve EUR/USD paritesi için üçüncü/ikinci gündür güncel veri bulunamadı; bültende Pazartesi (2 Kasım) seviyeleri net şekilde "bayat" etiketiyle verildi.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -52,6 +53,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-04
+
+**`WebFetch` tamamen çalışmadı (4/4 adres), bu kez hata mesajı farklıydı.** Google Finance'in dört adresini de değil ama `www.google.com`, `www.ntv.com.tr` ve `www.cnbce.com`'u denerken `ENOTFOUND` ("outside session's allowed network domains") hatası alındı — önceki günlerin alışıldık `EGRESS_BLOCKED`'ından farklı bir mesaj, muhtemelen oturumun ağ politikasında bir değişiklik. Pratik etki aynı: BIST 100 ve dolar/TL üçüncü/ikinci gündür güncellenemedi (en son doğrulanan seviye 2 Kasım Pazartesi açılışı), euro/TL ve EUR/USD paritesi de bu zincire bağlı olarak bayat kaldı. Bülten bu durumu açıkça etiketledi, rakam uydurulmadı. → Operasyon notları güncellendi.
+
+**Dünkü (3 Kasım) bültende düzeltilecek bir hata çıkmadı.** ABD endeks kapanışları nokta-değişimi testiyle doğrulandı: 51.983,98 − 197,26 = 51.786,72 (Dow, ▼%0,38 ✓), 7.541,40 + 27,52 = 7.568,92 (S&P, ▲%0,36 ✓), 25.164,32 + 207,65 ≈ 25.372,01 (Nasdaq, ▲%0,83 ✓) — üçü de dünkü bültenin "dün" olarak verdiği kapanışla tam örtüştü.
 
 ### 2026-11-02
 
