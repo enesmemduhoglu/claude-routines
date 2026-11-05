@@ -45,6 +45,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
+- **5 Kasım 2026'da `WebFetch` denenen her adreste `ENOTFOUND` döndürdü — `www.google.com` dahil.** Daha önce `google.com/finance` `EGRESS_BLOCKED` ile bloklanıyordu (erişilebiliyor ama reddediliyordu); bugün DNS seviyesinde çözümlenemedi (`getaddrinfo ENOTFOUND`), yani hata türü değişti. `www.riotimesonline.com` ve `www.stocktitan.net` da aynı şekilde başarısız oldu. Bülten tamamen `WebSearch` özetleriyle ve çapraz doğrulamayla (gram/ons/kur, nokta-değişim testi) yazıldı; veri kalitesi etkilenmedi ama `WebFetch`'in o gün tamamen devre dışı olduğu anlaşıldı.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -52,6 +53,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-05
+
+**Dünkü (4 Kasım) bültende düzeltilecek bir hata çıkmadı.** BIST, dolar/TL ve ABD kapanışları için o gün açıklanan veri boşlukları ("3 gün bayat" BIST, "2 gün bayat" dolar/TL) bugünkü araştırmayla tutarlı çıktı; nokta-değişim testiyle zincir doğrulandı (Nasdaq: 25.372,01 × 1,0144 = 25.737,3 ≈ bugün bulunan 25.736,51; Dow: 51.786,72 + 1.569,40 = 53.356,12 ≈ bugün bulunan 53.356,12). Yani dünkü bültenin "3 Kasım kapanışı" diye verdiği ABD endeks rakamları (Dow 51.786,72, S&P 7.568,92, Nasdaq 25.372,01) doğruydu ve bugünün 4 Kasım (seçim sonrası ralli) kapanışının çıkış noktası oldu.
+
+**ABD ara seçimleri sonrası büyük küresel ralli bültene büyük veri boşluğundan sonra net girdi.** `WebFetch` bugün denenen her adreste (`www.google.com`, `www.riotimesonline.com`, `www.stocktitan.net`) `ENOTFOUND` döndürdü — bkz. Operasyon notları. Bülten tamamen `WebSearch` özetleriyle yazıldı; ABD endeks kapanışları (Dow +%3,03, S&P +%1,58, Nasdaq +%1,44) nokta-değişim testiyle, BIST (11.478,13 kapanış → bugün 11.580 gün içi) çarpma testiyle, kur/altın gram/ons/kur çaprazıyla doğrulandı. Hiçbir rakam çözülemeyen bir çelişki üretmedi; gümüş ve dolar endeksi için bugüne ait rakam bulunamadığından son doğrulanan (3 Kasım) seviyeler kullanıldı ve bültende açıkça belirtildi.
 
 ### 2026-11-02
 
