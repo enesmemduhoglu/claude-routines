@@ -53,6 +53,14 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
 
+### 2026-11-08
+
+**Gmail'in HTML sanitize'ı inline CSS'teki `background:` shorthand'ını siliyor, `background-color:` siliyormuyor.** Kart arka planları (`background:#ffffff`) ve vurgu kutusu (`background:#fffbeb`) için `background` kısayolu kullanılmıştı; gönderilen e-postada bu özellik tamamen kaybolmuş, kartlar beyaz/renkli zemin yerine şeffaf görünmüş (sadece dış sarmalayıcıdaki `background-color:#f4f4f2` hayatta kalmış). `get_thread` ile kontrolde fark edildi, aynı thread'e `background` yerine `background-color` kullanılan düzeltilmiş HTML gönderildi ve ikinci kontrolde doğru render edildiği teyit edildi. **Ders: e-posta HTML'inde arka plan rengi için her zaman `background-color:` yaz, `background:` kısayolunu kullanma — Gmail bunu siliyor.** → Yeni kural 16 (SKILL.md'ye taşınması gerekir, kullanıcı yapmalı).
+
+**Yeni bloklu/erişilemeyen host: `straits.live` (`ENOTFOUND`).** Hürmüz Boğazı güncellemeleri için özel bir günlük brifing sitesi olan straits.live'ın `2026-11-07` brifingine `WebFetch` ile ulaşılamadı, DNS çözümlenemedi (isabullion.com/mitrade.com ile aynı hata tipi). `WebSearch` sonuçlarındaki aynı siteye atıfta bulunan başka makalelerle devam edildi. `www.google.com` da bu çalışmada yine `ENOTFOUND` döndü (bilinen bloklu domain, değişen bir şey yok).
+
+**Pazar günü (hafta sonu, piyasalar kapalı) hafta sonu gerçek bir jeopolitik gelişme çıktı: Hürmüz'de yeni tanker/mayın olayları.** Cuma-pazar arası birden fazla haber sitesi (Greek City Times, The Malaysian Reserve, ABC News, Palestine Chronicle, Social News XYZ) İran kaynaklı tanker mayın iddiaları ve İran ordusunun "ABD şartları kabul etmedikçe boğaz kapalı kalacak" açıklamasını aktardı; sayılar kaynaklar arası tutarsızdı (2-5 tanker) ve hiçbir denizcilik otoritesi doğrulamadı — bültende bu şekilde (doğrulanmamış, İran kaynaklı) belirtildi. **Ders: hafta sonu/piyasa kapalıyken bile "bugünün gelişmeleri" bölümü boş geçilmemeli, aynı dönem için jeopolitik/haber taraması yapılmalı** — SKILL Adım 1 zaten bunu istiyor, bugün ilk kez gerçek bir hafta sonu senaryosunda uygulandı.
+
 ### 2026-11-02
 
 **İki yeni bloklu domain bulundu; `WebFetch` bugün denenen 4 adresin 4'ünde de başarısız oldu.** `www.isabullion.com` ve `mitrade.com` ilk kez denendi, ikisi de DNS çözümlemesinde (`ENOTFOUND`) başarısız oldu — `www.google.com` ve `www.kitco.com` zaten bilinen bloklu adreslerdi. Sonuç: ons altın, gümüş, Brent, ABD 10 yıllık faiz ve dolar endeksi için cuma (30 Ekim) kapanışından daha güncel, doğrulanabilir bir Pazartesi rakamı bulunamadı; bültende bu durum açıkça belirtildi ve bu kalemler cuma seviyeleriyle verildi. BIST 100 (açılış) ve dolar/TL (serbest piyasa, tarihli Türkçe haber siteleri üzerinden) için güncel rakam bulunabildi. → Operasyon notlarındaki bloklu domain listesi güncellendi.
