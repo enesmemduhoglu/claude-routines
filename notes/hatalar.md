@@ -10,8 +10,8 @@ Bu dosyayı `gunluk-ekonomi` skill'ini çalıştıran ajan tutar. Amaç: aynı h
 
 Her bültende geçerli. En fazla 15 madde — doluysa eskiyen bir maddeyi çıkar.
 
-1. **"Rekor" kelimesini haberden kopyalama.** Türk haber siteleri "altın rekor kırdı" başlığını, fiyat zirvenin çok altındayken bile atıyor. Rekor demeden önce ATH'yi bul ve bugünkü fiyatla karşılaştır. Emin değilsen "X ayın zirvesi" de.
-2. **Altın zirveleri (29 Ocak 2026):** ons **$5.602**, gram **₺7.797**. Ons ve gram ayrı ayrı kontrol edilir — kur etkisiyle biri rekor kırarken diğeri kırmayabilir.
+1. **"Rekor" kelimesini haberden kopyalama.** Türk haber siteleri "altın rekor kırdı" başlığını, fiyat zirvenin çok altındayken bile atıyor. Rekor demeden önce ATH'yi bul ve bugünkü fiyatla karşılaştır (zirveler SKILL.md'de — 29 Ocak 2026: ons $5.602, gram ₺7.797). Emin değilsen "X ayın zirvesi" de.
+2. **HTML mailin her kart div'ine `background-color` değerini açıkça inline yaz** (kartlar `#ffffff`, altın kutuları `#f4f4f2`, vurgu kutusu `#fffbeb`) — unutulursa kartlar şeffaflaşıp sayfa arka planıyla karışıyor, kartlar "kaybolmuş" gibi görünüyor (8 Kasım'da oldu, düzeltme maili gerekti). Göndermeden önce taslağı gözden geçirirken her `<div style="border-radius...">` için background-color'ın da yazıldığını kontrol et.
 3. **Neden-sonuç cümlelerini yazdıktan sonra bir kez daha oku.** Özellikle "güven / güvensizlik", "risk iştahı / kaçış", "alım / satım baskısı" gibi ters çevrilmesi kolay ifadeleri. Cümlenin anlamı kastettiğinin tersi olmasın.
 4. **Faiz yükselirken altın da yükseliyorsa** bunun okuması "ABD varlıklarına **güven kaybı**, yatırımcı ek getiri talep ediyor" yönündedir — "güven" değil.
 5. **Bulut ortamında bazı siteler egress proxy tarafından bloklu.** Güncel liste aşağıdaki "Operasyon notları" bölümünde. Zaman kaybetme — `WebSearch` sonuçlarındaki özetlerle çalış, `WebFetch`'i sadece bloklu olmayan sitelerde dene.
@@ -52,6 +52,10 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-09
+
+**Süreklilik kontrolünde (Adım 0b) 8 Kasım bültenindeki bir biçimlendirme hatası fark edildi — henüz günlüğe işlenmemişti.** 8 Kasım'ın ilk gönderiminde kart div'lerine (`border-radius:10px;padding:16px...`) `background-color` yazılmamıştı; kartlar sayfanın `#f4f4f2` arka planıyla aynı renkte kaldığı için görünmez oldu. Aynı thread'e düzeltilmiş (background-color'lar eklenmiş) bir takip maili gönderilerek sorun giderilmişti ama bu hiç kayda geçmemiş. Bugünkü bültende şablon, düzeltilmiş (background-color'lı) hâliyle kopyalanıp gönderildi ve `get_thread` ile doğru render edildiği teyit edildi. **Not: 6 Kasım bülteninin de kart div'lerinde aynı eksik var (background-color yok) ama o gün için düzeltme maili atılmamış** — geriye dönük düzeltme yapılmadı (SKILL.md'de "sessizce değiştirme, düzeltme notu koy" kuralı geriye dönük zaten gönderilmiş eski bültenler için yeni bir aksiyon gerektirmiyor, sadece bugünkü/yarınki bültenle ilgili bir hata varsa not düşülür; 6 Kasım'daki görsel kusur sayısal bir hata olmadığı için bugünkü bültene Düzeltme notu konmadı). → Yeni kalıcı kural 2; eskiyen kural 2 (altın zirveleri, zaten SKILL.md'de yazılı) çıkarıldı.
 
 ### 2026-11-02
 
