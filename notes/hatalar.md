@@ -45,6 +45,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
+- **10 Kasım 2026'da denenen 12 adresin 12'si de `ENOTFOUND` döndürdü — `WebFetch` o gün tek bir siteyle de çalışmadı.** Yeni denenen domainler: hisse.net, newsukraine.rbc.ua, kucoin.com, finans.sabah.com.tr, finansgundem.com.tr, borsatek.com, abcgazetesi.com.tr, paratic.com, ekoturk.com, politikam.com, cnbce.com (+ zaten bilinen www.google.com, www.sozcu.com.tr tekrar denendi). Bülten tamamen `WebSearch` özetleriyle, çok sayıda dar/tarihli sorgu (örn. "BIST 100 açılış 10 Kasım Salı") ile yazıldı — bu sorgu kalıbı (gün adı + tarih + anahtar kelime) günlük haber sitelerinin güncel sayfalarını buluyor, genel "canlı"/"şimdi" sorguları eski önbellek sonuçları veriyor.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -52,6 +53,10 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-10
+
+**`WebFetch` bugün denenen 12 adresin 12'sinde de başarısız oldu (hepsi `ENOTFOUND`), bülten tamamen `WebSearch` özetleriyle yazıldı.** Genel/"canlı" sorgular ("BIST 100 canlı endeks şimdi", "dolar kuru canlı şimdi") güncel veri değil eski önbellek sonuçları getirdi; buna karşılık "gün adı + tarih + anahtar kelime" kalıbındaki sorgular ("BIST 100 açılış 10 Kasım Salı yükseliş düşüş", "gram altın ons altın "10 Kasım" bugün kaç TL") günün kendi haberlerini (sözcü, diken, mynet, abcgazetesi vb.) doğru şekilde buldu. Ayrıca bir sorguda ("ABD tahvil faizi dolar endeksi pazartesi kapanış S&P Nasdaq Dow rallisi") arama özeti yanlışlıkla 22 Eylül 2026 tarihli bir haberin rakamlarını (Dow %0,71/52.048,83 vb.) güncelmiş gibi sundu — kaynak linkindeki "22-09-26" ibaresiyle yakalandı ve kullanılmadı; doğru pazartesi (9 Kasım) kapanışı başka bir arama turunda üç kaynaktan (kucoin, sabah finans, borsaningündemi) birbirini doğrulayan rakamlarla (S&P %2,35, Nasdaq %2,74, Dow %2,15) bulundu. Brent için bugüne ait doğrulanabilir bir rakam hiç bulunamadı; cuma kapanışı kullanıldı ve bültende açıkça belirtildi (kural 15). → Operasyon notları güncellendi; yeni kalıcı kural açılmadı, mevcut kurallar (5, 13, 15) yeterliydi.
 
 ### 2026-11-09
 
