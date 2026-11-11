@@ -45,6 +45,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
+- **11 Kasım 2026'da `www.google.com` dahil denenen 11 adresin tamamı başarısız oldu.** Yeni bloklu/erişilemeyen domainler (hepsi `ENOTFOUND`): `mansethaber.com`, `www.cumhuriyet.com.tr`, `www.thestar.com.my`, `www.bursadabugun.com`, `turgutluhaber.com`, `www.sonmuhur.com`, `www.guneydoguekspres.com`, `istanbulticaretgazetesi.com`. `www.reuters.com` farklı bir hatayla ("unable to fetch") başarısız oldu. `www.google.com` bu kez `EGRESS_BLOCKED` değil `ENOTFOUND` döndürdü — kural 9'da zaten not edildiği gibi erişim günden güne değişiyor, hata mesajının türü de sabit değil.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -52,6 +53,10 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-11
+
+**`WebFetch` bugün denenen 11 adresin tamamında başarısız oldu (sekiz yeni domain + google.com).** `www.google.com` dahil hiçbir siteye erişilemedi; bülten tamamen `WebSearch` özetleriyle yazıldı (detaylar Operasyon notları'nda). Hatalı rakam bültene girmedi — ons altının dünkü (10 Kasım) ABD TÜFE'nin beklentiyi aşması sonrası sert düşüşü ($4.117→yaklaşık $4.032) ve bu sabahki kısmi toparlanması (~$4.054) gram/ons/kur çaprazıyla iç tutarlılığı doğrulanarak kullanıldı; bir arama sonucunda rastlanan "gram ₺6.651" rakamı çapraz kontrolde 9 Kasım'ın (ons $4.123,54) birebir aynı değeri çıkınca bayat olduğu anlaşıldı ve kullanılmadı (kural 13'ün aynı varyantı). Brent, ABD 10 yıllık tahvil faizi ve dolar endeksi için hiçbir kaynaktan güncel bir rakam bulunamadı; tabloya SKILL Adım 2 madde 8 uyarınca son bilinen (salı CPI öncesi) değerler "doğrulanamadı" notuyla kondu, uydurma bir rakam yazılmadı. Yeni kural açılmadı, kurallar dolu (15/15) ve mevcutlar yeterliydi.
 
 ### 2026-11-09
 
