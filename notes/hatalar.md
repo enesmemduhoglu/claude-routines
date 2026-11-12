@@ -46,12 +46,17 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
+- **12 Kasım 2026: `WebFetch` denenen 10 adresin 10'unda da `ENOTFOUND` (DNS çözümlemesi) hatası verdi** — `EGRESS_BLOCKED`'tan farklı bir belirti, muhtemelen o günkü ağ izin listesi daha dar. Aynı gün `WebSearch` da güncel (o günkü) BIST/dolar/altın rakamlarını hiçbir sorguda bulamadı; en güncel ulaşılabilen veri bir gün öncesine kaldı. Bu tek seferlik mi yoksa tekrarlayan bir durum mu belli değil — tekrarlarsa kalıcı kurala taşınmalı.
 
 ---
 
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-12
+
+**`WebFetch` bu çalışmada hiçbir adrese erişemedi — ilk kez `EGRESS_BLOCKED` değil, hepsi `ENOTFOUND` (DNS çözümlemesi) hatası verdi.** Denenen 10 farklı adres (www.google.com/finance ve kur sayfaları, ahaber.com.tr, finans.cnnturk.com, usagold.com, ekofin.net, politikam.com, new.findbullionprices.com, trthaber.com, sabah.com.tr) hepsi "getaddrinfo ENOTFOUND" döndürdü — önceki günlerdeki domain bazlı blok listesinden farklı bir belirti, muhtemelen oturumun ağ izin listesi bugün WebFetch hedeflerini tamamen kapsamıyordu. Ayrıca `WebSearch` da bugünün (12 Kasım) güncel BIST/dolar/altın rakamlarını ~25 farklı sorguda hiç bulamadı — en güncel bulunabilen veri dünden (11 Kasım, 10:50 TSİ) kaldı; capital.com.tr'nin günlük "piyasalarda gün ortası" serisinin 10-11 Kasım sayıları da aranınca çıkmadı, yani bu sadece "bugün henüz indekslenmedi" değil, günler önceki içerik de bazen aramadan düşüyor. **Bülten bu nedenle BIST/dolar/euro/parite/gram/ons altın için "11 Kasım 10:50 TSİ itibarıyla son doğrulanan seviye" etiketiyle gönderildi, Brent/ABD 10 yıllık/dolar endeksi için "veri yok" yazıldı** — SKILL Adım 2 madde 8'in gereği. Yeni kalıcı kural açılmadı (kurallar dolu, 15/15); Operasyon notları güncellendi. TCMB'nin yılın son Enflasyon Raporu da tam bu saatte (10.30-11.00) sunuluyordu, sonucu bu çalışma sırasında açıklanmamıştı — bültende "bekleniyor" olarak işlendi, rakam uydurulmadı.
 
 ### 2026-11-09
 
