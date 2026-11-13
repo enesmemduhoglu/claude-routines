@@ -45,6 +45,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **Trading Economics'in canlı sayfası aynı oturumda birbirini tutmayan anlık değerler döndürüyor (1 Eylül 2026).** Aynı çalışmada altın için hem "31 Ağustos'ta $4.450,95'e düştü" hem "1 Eylül itibarıyla $4.456,86" çıktı; gümüş için üç ayrı okuma geldi ($67,11 / $66,61 / "$66,2 salı"). Sayfa canlı güncellendiği için arama motoru özetleri farklı anları yakalıyor ve hepsi aynı tarihe etiketleniyor. **TE'den gelen tek bir okumayı kapanış diye kullanma** — gram/ons/kur çaprazıyla ya da altın/gümüş oranıyla doğrula.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
+- **`www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` da `ENOTFOUND` döndürdü (13 Kasım 2026, ilk kez denendi).** `www.google.com` (Google Finance) da aynı gün yine `ENOTFOUND` ile bloklu çıktı — artık bu oturumda `WebFetch`'in hiçbir sitede çalışmadığını varsaymak, her gün tek tek denemekten daha verimli.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -52,6 +53,14 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-13
+
+**`WebFetch` bu oturumda denenen 5 adresin 5'inde de başarısız oldu — üçü ilk kez denendi.** `www.google.com` (Google Finance, iki kez), `www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` hepsi `ENOTFOUND` döndürdü (önceki günlerdeki `EGRESS_BLOCKED` ile aynı pratik sonuç — erişim yok). Üçü (ekonomist.com.tr, hisse.net, aposto.com) daha önce listede yoktu. → Operasyon notlarına eklendi.
+
+**12 Kasım bülteni gibi, bu sabah da `WebSearch` saat 10:30-11:00 TSİ civarında "bugünün" (13 Kasım) rakamlarını doğrudan vermiyordu — ama dünkü bültenden farklı olarak bu kez tarihli/numaralı arama varyasyonlarıyla (örn. "nid12112026" tarzı URL kalıpları, "güne nasıl başladı" formülü, kurum adı + spesifik rakam aramaları) güncel veriye ulaşıldı.** Özellikle önemli: Nvidia CEO'su Jensen Huang'ın 12 Kasım'da istifa ettiği haberi ilk aramalarda çıkmadı (en güncel sonuçlar 9 Kasım'daki "soruşturma açıldı" haberiyle sınırlıydı); SEC 8-K dosyasını doğrudan arayınca ("Jensen Huang Nvidia CEO resigns November 2026") birincil kaynaktan teyit edildi. **Ders: büyük/sürpriz bir gelişme arandığında ("X istifa etti", "Y battı" gibi) şirketin resmi başvurusunu (8-K, KAP, TCMB duyurusu) doğrudan aramak, haber sitelerinin henüz indekslemediği olayları da yakalayabiliyor.** Yeni kalıcı kural açılmadı (kurallar dolu, 15/15); bu zaten kural 5/9'un "WebSearch'le çöz" ilkesinin bir uzantısı.
+
+**ABD 10 yıllık tahvil faizi, dolar endeksi ve Brent için tek bir AI-özet araması çok yüksek/tutarsız rakamlar verdi (10 yıllık %5,10+, DXY 103,24 "19 ayın zirvesi", Brent $95,8 "+%3,3 Hürmüz Boğazı") ve bu rakamlar başka aramalarla doğrulanamadı.** Önceki günlerin bilinen seviyeleriyle (10 yıllık ~%4,87, DXY ~101,6) karşılaştırıldığında sıçrama çok büyük görünüyordu; ikinci/üçüncü aramalar bu üç rakam için hiçbir bağımsız teyit getirmedi. Bültende üçü de "veri yok" olarak bırakıldı, uydurma/tahmini rakam yazılmadı (SKILL Adım 2 madde 8). Yeni kural açılmadı — mevcut "tek kaynak doğrulanamıyorsa yazma" ilkesi yeterli.
 
 ### 2026-11-09
 
