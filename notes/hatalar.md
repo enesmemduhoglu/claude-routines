@@ -46,6 +46,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`www.usagold.com` `EGRESS_BLOCKED` döndürdü (4 Ekim 2026).** USAGOLD'un günlük raporları `WebSearch` özetlerinden okunabiliyor, `WebFetch` ile sayfaya girilemiyor.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
 - **`www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` da `ENOTFOUND` döndürdü (13 Kasım 2026, ilk kez denendi).** `www.google.com` (Google Finance) da aynı gün yine `ENOTFOUND` ile bloklu çıktı — artık bu oturumda `WebFetch`'in hiçbir sitede çalışmadığını varsaymak, her gün tek tek denemekten daha verimli.
+- **`www.capital.com.tr` `ENOTFOUND` döndürdü (14 Kasım 2026, ilk kez denendi).** `www.google.com` da aynı gün yine bloklu çıktı. Hafta sonu çalışmasında da `WebFetch` bu oturumda hiçbir adreste çalışmadı; doğrudan `WebSearch`'e geçildi.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -53,6 +54,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-14
+
+**`WebFetch` bu oturumda denenen 2 adresin 2'sinde de başarısız oldu; `www.capital.com.tr` ilk kez denendi ve `ENOTFOUND` döndü.** `www.google.com` (Google Finance) zaten bilinen bloklu adresti, `www.capital.com.tr` (capital.com.tr'nin "gün sonu rakamları" sayfası) yeni bir deneme. İkisi de erişilemedi, bülten tamamen `WebSearch` özetleriyle yazıldı. → Operasyon notlarına eklendi.
+
+**Hafta sonu (Cumartesi) çalışmasında BIST/ABD borsaları kapalı olduğu için bütün piyasa verileri cuma (13 Kasım) kapanışına dayandırıldı; bu doğru yaklaşım, hata değil.** BIST 100 kapanışı (11.842,82 ▲%0,27) ve haftalık %3,14 artış, bilinen 6 Kasım kapanışıyla (11.482,60) çarpma testiyle doğrulandı (11.482,60×1,0314≈11.843,0 ✓). Gram/ons/kur çaprazı da tutarlı çıktı (3.887,70×50,3615÷31,1035≈6.294,6 ≈ aposto'nun verdiği ₺6.295). ABD ekim ÜFE sonucunun kesin rakamı ve TCMB'nin eylül cari denge sonucu (sadece beklenti bulundu, gerçekleşen değil) bağımsız doğrulanamadı; bültende "veri yok/doğrulanamadı" olarak bırakıldı, uydurulmadı.
 
 ### 2026-11-13
 
