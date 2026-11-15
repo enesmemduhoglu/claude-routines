@@ -47,12 +47,19 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
 - **`www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` da `ENOTFOUND` döndürdü (13 Kasım 2026, ilk kez denendi).** `www.google.com` (Google Finance) da aynı gün yine `ENOTFOUND` ile bloklu çıktı — artık bu oturumda `WebFetch`'in hiçbir sitede çalışmadığını varsaymak, her gün tek tek denemekten daha verimli.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
+- **Gmail'in gönderim sırasında uyguladığı HTML temizleyici inline `display:flex` ve `gap` özelliklerini siliyor (15 Kasım 2026'da fark edildi).** Altın bölümündeki ons/gram kutuları `display:flex;gap:10px` ve çocuk div'lerde `flex:1` ile yazılmıştı; gönderilen mesajı `get_thread` ile kontrol edince `gap` ve `flex:1`'in silindiği, kutuların yan yana ama boşluksuz ve eşit genişlikte olmadan durduğu görüldü. İçerik okunur kaldığı için düzeltme maili atılmadı. **Ders: yan yana kutular için flexbox yerine `<table>` (hücreler arası `padding`/boş hücreyle boşluk) veya `display:inline-block` + sabit `width` + `margin` kullan** — bunlar Gmail'in temizleyicisinden sağ çıkıyor.
 
 ---
 
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-15
+
+**Rutin bu sabah ilk kez bir Pazar günü çalıştı (BIST cumartesi-pazar kapalı, ABD borsaları da hafta sonu kapalı).** SKILL Adım 2'deki "borsa açıkken önceki kapanışı verme" kuralı burada tersine işledi: gün içi veri aranmadı, bütün piyasa özeti cuma (13 Kasım) kapanışıyla yazıldı ve bu açıkça belirtildi — dünkü (14 Kasım, cumartesi) bültenle aynı temel rakamlar kullanıldı (yeni oturum açılmadığı için rakamlar değişmedi), ama "bugünün gelişmeleri" ve "dünya piyasaları" bölümleri tekrara düşmemek için öne bakan içerik (Nvidia'nın 17 Kasım bilançosu, 18 Kasım Meclis daveti, Fed'in 8-9 Aralık kararı, BIST'in pazartesi 10:00 TSİ açılışı) üzerine kuruldu. Yeni kalıcı kural açılmadı; SKILL.md zaten hafta sonu/kapalı piyasa senaryosunu kapsıyor.
+
+**Brent için iki kaynak grubu çelişti; haftalık özet/settlement verisi günlük Asya seansı okumasını geçersiz kıldı.** Bir arama "12 Kasım $91,29 (Asya seansı)" ve "13 Kasım mixed, ikinci haftalık düşüş" derken, haftalık özet kaynakları (financefeeds, zeebiz, gate.com) cuma settlement'ını net biçimde **$95,84** (haftalık ▼%2,5, 6 Kasım'ın $98,32 kapanışından) olarak veriyordu. Settlement verisi kullanıldı, gün içi Asya okuması elenmiş oldu. Yeni kural açılmadı; kural 13'ün "hangi an'a ait olduğunu belirle" ilkesi zaten kapsıyor — settlement/kapanış verisi her zaman gün içi/seans-arası okumaya tercih edilmeli.
 
 ### 2026-11-13
 
