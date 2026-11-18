@@ -54,6 +54,14 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
 
+### 2026-11-18
+
+**Sabah 10:30-11:00 TSİ aralığında onlarca genel tarih sorgusu ("18 Kasım 2026" + BIST/dolar/altın) "bugün" verisi döndürmedi — sorunu çözen, güne özel tematik terimler eklemekti.** Yaklaşık 15 genel sorgu (sadece tarih + jenerik anahtar kelime) sadece 16-17 Kasım'a ait bayat veri getirdi. Sorguya günün asıl haberini (Nvidia bilançosu, Fed tutanakları, "Çarşamba", "küresel risk iştahı" gibi) ekleyince foreks.com'un URL'sinde tarih etiketi taşıyan ("...-17-11-26/", "...-18-11-26/") makaleleri bulundu ve bunlardan BIST'in salı kapanışı (▼%1,53, çarpma testiyle 11.841,81×0,9847=11.660,5 ✓ doğrulandı), bugünkü dolar/euro ve ons altındaki sert düşüş teyit edildi. **Ders: jenerik tarih sorgusu tıkanırsa, günün bilinen ana haberiyle (şirket/veri/kurum adı) birleştirilmiş sorgu dene — tarih etiketli kaynak URL'leri (foreks gibi) bu şekilde yakalanabiliyor.** Yeni kalıcı kural açılmadı (kurallar dolu, 15/15); mevcut "WebSearch özetleriyle çöz" ilkesinin bir uzantısı.
+
+**getmidas.com başlığı günün temasıyla (Nvidia bilançosu + BIST yükselişi) tam örtüştüğü halde makale başka bir yıla aitti — bültene girmeden yakalandı.** "Piyasa bülteni: BIST100 yüzde 0,9 yükseldi, Nvidia güçlü bilanço açıkladı" başlığı bugünün haberiyle (Nvidia bilançosu) birebir örtüşüyordu, ama içerik BIST'i 14.611 puanda veriyordu — bu seviye bugünün bilinen 11.661 kapanışıyla hiç tutmuyor (BIST aylardır 11-12 bin bandında). Kullanılmadı. **Ders: başlık bugünün temasıyla eşleşse bile (ör. aynı şirketin bilançosu), içindeki seviye/rakamı bilinen son değerlerle çapraz kontrol etmeden kullanma — kural 13'ün tarih-karışıklığı ailesine yeni bir örnek (getmidas.com zaten WebFetch'te bloklu, ama WebSearch özetiyle de aynı tuzağı taşıyabiliyor).**
+
+**Google Finance (www.google.com) bu sabah da `ENOTFOUND` döndürdü — üst üste kaçıncı gün olduğu artık sayılmıyor, kalıcı olarak erişilemez kabul ediliyor.**
+
 ### 2026-11-13
 
 **`WebFetch` bu oturumda denenen 5 adresin 5'inde de başarısız oldu — üçü ilk kez denendi.** `www.google.com` (Google Finance, iki kez), `www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` hepsi `ENOTFOUND` döndürdü (önceki günlerdeki `EGRESS_BLOCKED` ile aynı pratik sonuç — erişim yok). Üçü (ekonomist.com.tr, hisse.net, aposto.com) daha önce listede yoktu. → Operasyon notlarına eklendi.
