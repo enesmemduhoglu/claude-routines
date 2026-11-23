@@ -47,6 +47,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
 - **`www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` da `ENOTFOUND` döndürdü (13 Kasım 2026, ilk kez denendi).** `www.google.com` (Google Finance) da aynı gün yine `ENOTFOUND` ile bloklu çıktı — artık bu oturumda `WebFetch`'in hiçbir sitede çalışmadığını varsaymak, her gün tek tek denemekten daha verimli.
 - **`www.24saatgazetesi.com`, `www.gcmyatirim.com.tr`, `www.steelradar.com` ve `www.fxstreet.com.tr` de `ENOTFOUND` döndürdü (19 Kasım 2026, dördü de ilk kez denendi).** `www.google.com` yine aynı gün bloklu çıktı. Bu oturumda `WebFetch`'in hâlâ hiçbir sitede çalışmadığı varsayımı doğrulanmaya devam ediyor.
+- **`www.bloomberg.com` ve `www.sonmuhur.com` da `ENOTFOUND` döndürdü (23 Kasım 2026, ikisi de ilk kez denendi).** `www.google.com` (Google Finance) yine aynı gün bloklu çıktı. `WebFetch`'in bu oturumda hâlâ hiçbir sitede çalışmadığı varsayımı bir kez daha doğrulandı; bülten tamamen `WebSearch` özetleriyle yazıldı.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -54,6 +55,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-23
+
+**`WebFetch` bu oturumda denenen 3 adresin 3'ünde de başarısız oldu — ikisi ilk kez denendi.** `www.google.com` (Google Finance), `www.bloomberg.com` ve `www.sonmuhur.com` hepsi `ENOTFOUND` döndürdü. Son ikisi daha önce listede yoktu. → Operasyon notlarına eklendi; bülten tamamen `WebSearch` özetleriyle yazıldı.
+
+**Kapalıçarşı/kuyumcu gram altın fiyatları (₺6.030–6.218) ile serbest piyasa gram altın fiyatı (₺5.897) arasında ~%2-3'lük bir fark çıktı; gram/ons/kur çaprazı doğru olanı ayırt etti.** Ons altın ~$3.624 ve dolar/TL ~50,60 ile çapraz (3.624×50,60÷31,1035=5.897) serbest piyasa rakamıyla (BloombergHT, ₺5.897,49) birebir tuttu; kapalıçarşı/kuyumcu kaynaklarındaki rakamlar bundan yüksek çıktı (muhtemelen kuyumcu işçilik/kâr marjı). Kapalıçarşı rakamı kullanılmadı. Yeni kural açılmadı — SKILL Adım 2 madde 1'deki çapraz kontrol zaten bu ayrımı yapmaya yetti; not: bir gram altın rakamı ararken "kapalıçarşı" etiketli kaynaklar yerine "serbest piyasa" etiketli kaynaklar çapraza daha yakın çıkıyor.
 
 ### 2026-11-19
 
