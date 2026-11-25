@@ -47,6 +47,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`www.isabullion.com` ve `mitrade.com` `ENOTFOUND` (DNS çözümlemesi) döndürdü (2 Kasım 2026).** İkisi de ilk kez denendi. Hata mesajı `EGRESS_BLOCKED` değil "host dışında/mevcut değil" şeklinde ama sonuç aynı — `WebSearch` özetiyle devam edildi.
 - **`www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` da `ENOTFOUND` döndürdü (13 Kasım 2026, ilk kez denendi).** `www.google.com` (Google Finance) da aynı gün yine `ENOTFOUND` ile bloklu çıktı — artık bu oturumda `WebFetch`'in hiçbir sitede çalışmadığını varsaymak, her gün tek tek denemekten daha verimli.
 - **`www.24saatgazetesi.com`, `www.gcmyatirim.com.tr`, `www.steelradar.com` ve `www.fxstreet.com.tr` de `ENOTFOUND` döndürdü (19 Kasım 2026, dördü de ilk kez denendi).** `www.google.com` yine aynı gün bloklu çıktı. Bu oturumda `WebFetch`'in hâlâ hiçbir sitede çalışmadığı varsayımı doğrulanmaya devam ediyor.
+- **`pricegold.net` ve `www.capital.com.tr` da `ENOTFOUND` döndürdü (25 Kasım 2026, ikisi de ilk kez denendi).** `www.google.com` yine aynı gün bloklu çıktı. `WebFetch`'in bu oturumda hiçbir sitede çalışmadığı varsayımı geçerliliğini sürdürüyor.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -54,6 +55,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-25
+
+**`WebFetch` bu oturumda denenen tüm adreslerde (google.com, pricegold.net, capital.com.tr) başarısız oldu; genel/tarihsiz `WebSearch` sorguları da bugünün (25 Kasım) rakamlarını doğrudan vermedi — sorgulara site adı + tam tarih yazınca (örn. "25 Kasım 2026" + sözcü/diken/bursatv) bugünün gerçek açılış rakamlarına ulaşıldı.** Genel sorgular ("BIST 100 bugün kaç puan", "dolar ne kadar oldu") sürekli 1-3 hafta eski veya bir önceki yıla (2025) ait sonuçlar getirdi; arama motoru özetleri de bunu açıkça belirtip "bu veri 2025'e ait" diye uyardı. Site adı + tam tarihli başlık kalıbı (örn. "foreks ... gune basladi 25 11 26", "sözcü ... 25 kasim 2026") kullanılınca bugünün BIST açılışı (10.951,16, ▼%0,13), dünkü kapanışı (10.965,93, ▼%1,25) ve dolar/euro (50,68 / 55,45) rakamlarına ulaşıldı; iki ayrı site (Bursa TV, Borsatek) birbirine yakın rakam verince teyit sayıldı. Ons altın için de benzer şekilde "spot gold ounce today November 25 trading near" tarzı İngilizce sorgu, Türkçe sorguların bulamadığı güncel (~$3.550) rakamı getirdi. Yeni kural açılmadı (kurallar dolu, 15/15); bu zaten kural 5/9'un "WebSearch'le çöz" ilkesinin bir uzantısı ama teknik olarak not edilmeye değer: **tam tarih + site adı kombinasyonu, genel sorgulardan daha güvenilir sonuç veriyor.**
+
+**PCE takvimi iki bağımsız kaynakla (bir ekonomik takvim sitesi + BEA'nın Eylül verisi sayfasındaki "previous/next release" alanı) çapraz doğrulandı; ikisi de 25 Kasım 2026 8:30 ET (16:30 TSİ) diyordu.** Ayrıca bir üçüncü kaynak Aralık PCE'nin FOMC'den (9 Aralık) iki hafta önce (23 Aralık) yayımlanacağını belirterek tutarlılığı destekledi. Dünkü bültenle de (aynı tarih/saat) örtüştüğü için yüksek güvenle kullanıldı.
 
 ### 2026-11-19
 
