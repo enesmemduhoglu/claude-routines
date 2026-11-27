@@ -48,6 +48,7 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 - **`www.ekonomist.com.tr`, `www.hisse.net` ve `aposto.com` da `ENOTFOUND` döndürdü (13 Kasım 2026, ilk kez denendi).** `www.google.com` (Google Finance) da aynı gün yine `ENOTFOUND` ile bloklu çıktı — artık bu oturumda `WebFetch`'in hiçbir sitede çalışmadığını varsaymak, her gün tek tek denemekten daha verimli.
 - **`www.24saatgazetesi.com`, `www.gcmyatirim.com.tr`, `www.steelradar.com` ve `www.fxstreet.com.tr` de `ENOTFOUND` döndürdü (19 Kasım 2026, dördü de ilk kez denendi).** `www.google.com` yine aynı gün bloklu çıktı. Bu oturumda `WebFetch`'in hâlâ hiçbir sitede çalışmadığı varsayımı doğrulanmaya devam ediyor.
 - **`pricegold.net` ve `www.capital.com.tr` da `ENOTFOUND` döndürdü (25 Kasım 2026, ikisi de ilk kez denendi).** `www.google.com` yine aynı gün bloklu çıktı. `WebFetch`'in bu oturumda hiçbir sitede çalışmadığı varsayımı geçerliliğini sürdürüyor.
+- **`www.foreks.com` ve `www.borsatek.com` da `ENOTFOUND` döndürdü (27 Kasım 2026, ikisi de ilk kez denendi).** `www.google.com` yine aynı gün bloklu çıktı. `WebFetch`'in bu oturumda hiçbir sitede çalışmadığı varsayımı geçerliliğini sürdürüyor.
 - **Bunun dışında `WebFetch` çoğu sitede çalışmıyor.** 25 Ağustos 2026'da denenen 10 adresin 10'u da bloklandı — resmî kaynaklar (TCMB, BEA) dahil. Varsayılan yöntem `WebSearch` özetleri olmalı; `WebFetch` sadece listede olmayan ve gerçekten kritik bir kaynak için tek denemelik son çare.
 
 ---
@@ -55,6 +56,12 @@ Rutinin çalıştığı bulut ortamıyla ilgili teknik bulgular.
 ## Günlük
 
 Yeni kayıtlar en üste. Format: tarih, ne yanlıştı, doğrusu, nasıl yakalandı.
+
+### 2026-11-27
+
+**`WebFetch` bu oturumda denenen 3 adresin 3'ünde de başarısız oldu — ikisi (`www.foreks.com`, `www.borsatek.com`) ilk kez denendi.** `www.google.com`, `www.foreks.com` ve `www.borsatek.com` hepsi `ENOTFOUND` döndürdü. → Operasyon notlarına eklendi.
+
+**ABD'nin tatil sonrası (Şükran Günü ertesi Black Friday) sabahında, Türk finans sitelerinin güne özel "güne nasıl başladı/kapandı" haberleri sabah 10:30 TSİ itibarıyla arama motorunda henüz indekslenmemişti; dolar/TL ve euro/TL için güncel (bugünün) bir kotasyon hiçbir aramada bulunamadı — bültende "dünkü kapanış" olarak işaretlenip verildi.** Buna karşılık BIST açılış rakamı iki bağımsız kaynaktan (Memurlar.net, Canlı Gaste: 10.737,18 ▼%0,06) doğrulanabildi ve önceki kapanışla (10.743,11 ▲%0,82) çarpma testi tuttu (10.743,11×0,9994=10.737,2 ✓). Ons altın için Türkçe aramalar sonuç vermezken, İngilizce ve tarihe/anlatıya bağlı sorgular ("gold price today Friday November 27 2026", "15-month low rebound") İngilizce finans sitelerinden (Financefeeds, Trading Economics, Business Recorder) güncel ve birbiriyle uyumlu rakamlar (~$3.620-3.650) getirdi. **Ders: BIST açılış/kapanış haberleri gibi rutin, şablonlaşmış başlıklar güne özel indekslenmekte gecikebiliyor ama analist/sektör haberleri ve İngilizce kaynaklar daha hızlı indeksleniyor olabilir — bir dilde/kalıpta sonuç çıkmıyorsa diğerini dene.** Yeni kalıcı kural açılmadı (kurallar dolu, 15/15); mevcut kural 5/9'un "WebSearch'le çöz, bulamıyorsan belirt" ilkesinin bir uzantısı.
 
 ### 2026-11-25
 
